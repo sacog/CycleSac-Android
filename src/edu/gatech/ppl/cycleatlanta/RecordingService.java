@@ -48,22 +48,25 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 
 public class RecordingService extends Service implements LocationListener {
-	RecordingActivity recordActivity;
+	FragmentMainInput recordActivity;
 	LocationManager lm = null;
 	DbAdapter mDb;
 
 	// Bike bell variables
 	static int BELL_FIRST_INTERVAL = 20;
 	static int BELL_NEXT_INTERVAL = 5;
-    Timer timer;
+	Timer timer;
 	SoundPool soundpool;
 	int bikebell;
-    final Handler mHandler = new Handler();
-    final Runnable mRemindUser = new Runnable() {
-        public void run() { remindUser(); }
-    };
+	final Handler mHandler = new Handler();
+	final Runnable mRemindUser = new Runnable() {
+		public void run() {
+			remindUser();
+		}
+	};
 
 	// Aspects of the currently recording trip
 	double latestUpdate;
@@ -89,49 +92,57 @@ public class RecordingService extends Service implements LocationListener {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-	    soundpool = new SoundPool(1,AudioManager.STREAM_NOTIFICATION,0);
-	    bikebell = soundpool.load(this.getBaseContext(), R.raw.bikebell,1);
+		soundpool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
+		bikebell = soundpool.load(this.getBaseContext(), R.raw.bikebell, 1);
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-            if (timer!=null) {
-                timer.cancel();
-                timer.purge();
-            }
+		if (timer != null) {
+			timer.cancel();
+			timer.purge();
+		}
 	}
 
 	public class MyServiceBinder extends Binder implements IRecordService {
 		public int getState() {
 			return state;
 		}
+
 		public void startRecording(TripData trip) {
 			RecordingService.this.startRecording(trip);
 		}
+
 		public void cancelRecording() {
 			RecordingService.this.cancelRecording();
 		}
+
 		public void pauseRecording() {
 			RecordingService.this.pauseRecording();
 		}
+
 		public void resumeRecording() {
 			RecordingService.this.resumeRecording();
 		}
+
 		public long finishRecording() {
 			return RecordingService.this.finishRecording();
 		}
+
 		public long getCurrentTrip() {
 			if (RecordingService.this.trip != null) {
 				return RecordingService.this.trip.tripid;
 			}
 			return -1;
 		}
+
 		public void reset() {
 			RecordingService.this.state = STATE_IDLE;
 		}
-		public void setListener(RecordingActivity ra) {
-			RecordingService.this.recordActivity = ra;
+
+		public void setListener(FragmentMainInput mia) {
+			RecordingService.this.recordActivity = mia;
 			notifyListeners();
 		}
 	}
@@ -142,10 +153,10 @@ public class RecordingService extends Service implements LocationListener {
 		this.state = STATE_RECORDING;
 		this.trip = trip;
 
-	    curSpeed = maxSpeed = distanceTraveled = 0.0f;
-	    lastLocation = null;
+		curSpeed = maxSpeed = distanceTraveled = 0.0f;
+		lastLocation = null;
 
-	    // Add the notify bar and blinking light
+		// Add the notify bar and blinking light
 		setNotification();
 
 		// Start listening for GPS updates!
@@ -154,14 +165,16 @@ public class RecordingService extends Service implements LocationListener {
 
 		// Set up timer for bike bell
 		if (timer != null) {
-		    timer.cancel(); timer.purge();
+			timer.cancel();
+			timer.purge();
 		}
-        timer = new Timer();
-        timer.schedule (new TimerTask() {
-            @Override public void run() {
-                mHandler.post(mRemindUser);
-            }
-        }, BELL_FIRST_INTERVAL*60000, BELL_NEXT_INTERVAL*60000);
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				mHandler.post(mRemindUser);
+			}
+		}, BELL_FIRST_INTERVAL * 60000, BELL_NEXT_INTERVAL * 60000);
 	}
 
 	public void pauseRecording() {
@@ -198,7 +211,7 @@ public class RecordingService extends Service implements LocationListener {
 		this.state = STATE_IDLE;
 	}
 
-	public void registerUpdates(RecordingActivity r) {
+	public void registerUpdates(FragmentMainInput r) {
 		this.recordActivity = r;
 	}
 
@@ -216,9 +229,11 @@ public class RecordingService extends Service implements LocationListener {
 
 				latestUpdate = currentTime;
 				updateTripStats(loc);
-				boolean rtn = trip.addPointNow(loc, currentTime, distanceTraveled);
+				boolean rtn = trip.addPointNow(loc, currentTime,
+						distanceTraveled);
+				Log.v("Jason", "Distance Traveled: " + distanceTraveled);
 				if (!rtn) {
-	                //Log.e("FAIL", "Couldn't write to DB");
+					// Log.e("FAIL", "Couldn't write to DB");
 				}
 
 				// Update the status page every time, if we can.
@@ -238,21 +253,22 @@ public class RecordingService extends Service implements LocationListener {
 	@Override
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 	}
+
 	// END LocationListener implementation:
 
 	public void remindUser() {
-	    soundpool.play(bikebell, 1.0f, 1.0f, 1, 0, 1.0f);
+		soundpool.play(bikebell, 1.0f, 1.0f, 1, 0, 1.0f);
 
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		int icon = R.drawable.icon25;
-        long when = System.currentTimeMillis();
-        int minutes = (int) (when - trip.startTime) / 60000;
-		CharSequence tickerText = String.format("Still recording (%d min)", minutes);
+		int icon = R.drawable.icon48;
+		long when = System.currentTimeMillis();
+		int minutes = (int) (when - trip.startTime) / 60000;
+		CharSequence tickerText = String.format("Still recording (%d min)",
+				minutes);
 
 		Notification notification = new Notification(icon, tickerText, when);
-		notification.flags |=
-				Notification.FLAG_ONGOING_EVENT |
-				Notification.FLAG_SHOW_LIGHTS;
+		notification.flags |= Notification.FLAG_ONGOING_EVENT
+				| Notification.FLAG_SHOW_LIGHTS;
 		notification.ledARGB = 0xffff00ff;
 		notification.ledOnMS = 300;
 		notification.ledOffMS = 3000;
@@ -260,10 +276,12 @@ public class RecordingService extends Service implements LocationListener {
 		Context context = this;
 		CharSequence contentTitle = "Cycle Atlanta - Recording";
 		CharSequence contentText = "Tap to see your ongoing trip";
-		Intent notificationIntent = new Intent(context, RecordingActivity.class);
-		PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-		notification.setLatestEventInfo(context, contentTitle, contentText,	contentIntent);
-        final int RECORDING_ID = 1;
+		Intent notificationIntent = new Intent(context, FragmentMainInput.class);
+		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+				notificationIntent, 0);
+		notification.setLatestEventInfo(context, contentTitle, contentText,
+				contentIntent);
+		final int RECORDING_ID = 1;
 		mNotificationManager.notify(RECORDING_ID, notification);
 	}
 
@@ -278,18 +296,20 @@ public class RecordingService extends Service implements LocationListener {
 		notification.ledARGB = 0xffff00ff;
 		notification.ledOnMS = 300;
 		notification.ledOffMS = 3000;
-		notification.flags = notification.flags |
-				Notification.FLAG_ONGOING_EVENT |
-				Notification.FLAG_SHOW_LIGHTS |
-				Notification.FLAG_INSISTENT |
-				Notification.FLAG_NO_CLEAR;
+		notification.flags = notification.flags
+				| Notification.FLAG_ONGOING_EVENT
+				| Notification.FLAG_SHOW_LIGHTS | Notification.FLAG_INSISTENT
+				| Notification.FLAG_NO_CLEAR;
 
 		Context context = this;
 		CharSequence contentTitle = "Cycle Atlanta - Recording";
 		CharSequence contentText = "Tap to see your ongoing trip";
-		Intent notificationIntent = new Intent(context, RecordingActivity.class);
-		PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-		notification.setLatestEventInfo(context, contentTitle, contentText,	contentIntent);
+		Intent notificationIntent = new Intent(context, FragmentMainInput.class);
+		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+				notificationIntent, 0);
+		notification.setLatestEventInfo(context, contentTitle, contentText,
+				contentIntent);
+
 		final int RECORDING_ID = 1;
 		mNotificationManager.notify(RECORDING_ID, notification);
 	}
@@ -298,34 +318,36 @@ public class RecordingService extends Service implements LocationListener {
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotificationManager.cancelAll();
 
-		if (timer!=null) {
-            timer.cancel();
-            timer.purge();
+		if (timer != null) {
+			timer.cancel();
+			timer.purge();
 		}
 	}
 
-    private void updateTripStats(Location newLocation) {
-        final float spdConvert = 2.2369f;
+	private void updateTripStats(Location newLocation) {
+		final float spdConvert = 2.2369f;
 
-    	// Stats should only be updated if accuracy is decent
-    	if (newLocation.getAccuracy()< 20) {
-            // Speed data is sometimes awful, too:
-            curSpeed = newLocation.getSpeed() * spdConvert;
-            if (curSpeed < 60.0f) {
-            	maxSpeed = Math.max(maxSpeed, curSpeed);
-            }
-            if (lastLocation != null) {
-                float segmentDistance = lastLocation.distanceTo(newLocation);
-                distanceTraveled = distanceTraveled + segmentDistance;
-            }
+		// Stats should only be updated if accuracy is decent
+		if (newLocation.getAccuracy() < 20) {
+			// Speed data is sometimes awful, too:
+			curSpeed = newLocation.getSpeed() * spdConvert;
+			if (curSpeed < 60.0f) {
+				maxSpeed = Math.max(maxSpeed, curSpeed);
+			}
+			if (lastLocation != null) {
+				float segmentDistance = lastLocation.distanceTo(newLocation);
+				distanceTraveled = distanceTraveled + segmentDistance;
+			}
 
-            lastLocation = newLocation;
-    	}
-    }
+			lastLocation = newLocation;
+		}
+	}
 
-    void notifyListeners() {
-    	if (recordActivity != null) {
-    		recordActivity.updateStatus(trip.numpoints, distanceTraveled, curSpeed, maxSpeed);
-    	}
-    }
+	void notifyListeners() {
+		if (recordActivity != null) {
+			Log.v("Jason", "Distance Traveled: hahaha");
+			recordActivity.updateStatus(trip.numpoints, distanceTraveled,
+					curSpeed, maxSpeed);
+		}
+	}
 }
