@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -162,7 +161,7 @@ public class NoteTypeActivity extends Activity {
 
 			// Cancel
 			NoteData note = NoteData.fetchNote(NoteTypeActivity.this, noteid);
-			Log.v("Jason", "Note id: " + noteid);
+			//Log.v("Jason", "Note id: " + noteid);
 			note.dropNote();
 
 			NoteTypeActivity.this.finish();
@@ -178,7 +177,7 @@ public class NoteTypeActivity extends Activity {
 
 			intentToNoteDetail.putExtra("noteid", noteid);
 
-			Log.v("Jason", "Note ID in NoteType: " + noteid);
+			//Log.v("Jason", "Note ID in NoteType: " + noteid);
 
 			if (isRecording == 1) {
 				intentToNoteDetail.putExtra("isRecording", 1);
@@ -205,7 +204,7 @@ public class NoteTypeActivity extends Activity {
 
 		// Cancel
 		NoteData note = NoteData.fetchNote(NoteTypeActivity.this, noteid);
-		Log.v("Jason", "Note id: " + noteid);
+		//Log.v("Jason", "Note id: " + noteid);
 		note.dropNote();
 
 		NoteTypeActivity.this.finish();
@@ -224,7 +223,7 @@ public class NoteTypeActivity extends Activity {
 
 			// Cancel
 			NoteData note = NoteData.fetchNote(NoteTypeActivity.this, noteid);
-			Log.v("Jason", "Note id: " + noteid);
+			//Log.v("Jason", "Note id: " + noteid);
 			note.dropNote();
 
 			NoteTypeActivity.this.finish();

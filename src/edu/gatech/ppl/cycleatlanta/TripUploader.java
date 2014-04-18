@@ -62,7 +62,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.Settings.System;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -377,19 +376,19 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 
 		try {
 			// Zip Upload!!!
-			Log.v("Jason", "postBodyData: " + postBodyData.toString());
-			Log.v("Jason", "postBodyData Length: " + postBodyData.length());
+			//Log.v("Jason", "postBodyData: " + postBodyData.toString());
+			//Log.v("Jason", "postBodyData Length: " + postBodyData.length());
 
 			postBodyDataZipped = compress(postBodyData);
 
-			Log.v("Jason", "postBodyDataZipped: " + postBodyDataZipped);
-			Log.v("Jason",
-					"postBodyDataZipped Length: "
-							+ String.valueOf(postBodyDataZipped.length));
-
-			Log.v("Jason", "Initializing HTTP POST request to " + postUrl
-					+ " of size " + String.valueOf(postBodyDataZipped.length)
-					+ " orig size " + postBodyData.length());
+//			Log.v("Jason", "postBodyDataZipped: " + postBodyDataZipped);
+//			Log.v("Jason",
+//					"postBodyDataZipped Length: "
+//							+ String.valueOf(postBodyDataZipped.length));
+//
+//			Log.v("Jason", "Initializing HTTP POST request to " + postUrl
+//					+ " of size " + String.valueOf(postBodyDataZipped.length)
+//					+ " orig size " + postBodyData.length());
 
 			postRequest.setHeader("Cycleatl-Protocol-Version", "3");
 			postRequest.setHeader("Content-Encoding", "gzip");

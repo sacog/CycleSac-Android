@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -97,8 +96,8 @@ public class NoteMapActivity extends Activity {
 				}
 			}
 
-			Log.v("Jason", "Image Photo: " + note.noteimagedata);
-			Log.v("Jason", "Image Photo: " + note.noteimageurl);
+//			Log.v("Jason", "Image Photo: " + note.noteimagedata);
+//			Log.v("Jason", "Image Photo: " + note.noteimageurl);
 
 			if (note.noteimageurl.equals("")) {
 			} else {
@@ -111,11 +110,11 @@ public class NoteMapActivity extends Activity {
 					imageView.setScaleType(ImageView.ScaleType.FIT_START);
 				}
 				imageView.setImageBitmap(photo);
-				Log.v("Jason", "Image Photo: " + photo);
+				//Log.v("Jason", "Image Photo: " + photo);
 			}
 
 		} catch (Exception e) {
-			Log.e("GOT!", e.toString());
+			//Log.e("GOT!", e.toString());
 		}
 	}
 

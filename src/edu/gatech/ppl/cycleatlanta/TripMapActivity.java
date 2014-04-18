@@ -36,7 +36,6 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -111,12 +110,12 @@ public class TripMapActivity extends Activity {
 
 			gpspoints = trip.getPoints();
 
-			Log.v("Jason", gpspoints.toString());
-
-			Log.v("Jason", String.valueOf(trip.startpoint.latitude * 1E-6));
-			Log.v("Jason", String.valueOf(trip.startpoint.longitude * 1E-6));
-			Log.v("Jason", String.valueOf(trip.endpoint.latitude * 1E-6));
-			Log.v("Jason", String.valueOf(trip.endpoint.longitude * 1E-6));
+//			Log.v("Jason", gpspoints.toString());
+//
+//			Log.v("Jason", String.valueOf(trip.startpoint.latitude * 1E-6));
+//			Log.v("Jason", String.valueOf(trip.startpoint.longitude * 1E-6));
+//			Log.v("Jason", String.valueOf(trip.endpoint.latitude * 1E-6));
+//			Log.v("Jason", String.valueOf(trip.endpoint.longitude * 1E-6));
 
 			if (trip.startpoint != null) {
 				map.addMarker(new MarkerOptions()
@@ -150,7 +149,7 @@ public class TripMapActivity extends Activity {
 			PolylineOptions rectOptions = new PolylineOptions();
 			rectOptions.geodesic(true).color(Color.BLUE);
 
-			Log.v("Jason", String.valueOf(gpspoints.size()));
+			//Log.v("Jason", String.valueOf(gpspoints.size()));
 
 			// //startpoint
 			// map.addMarker(new MarkerOptions()
@@ -214,7 +213,7 @@ public class TripMapActivity extends Activity {
 			}
 
 		} catch (Exception e) {
-			Log.e("GOT!", e.toString());
+			//Log.e("GOT!", e.toString());
 		}
 	}
 

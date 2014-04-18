@@ -18,7 +18,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +93,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 			Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Log.v("Jason", "Cycle: MainInput onCreateView");
+		//Log.v("Jason", "Cycle: MainInput onCreateView");
 
 		// Toast.makeText(getActivity(), "Record Created",
 		// Toast.LENGTH_LONG).show();
@@ -205,7 +204,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 
 					fi.putExtra("noteid", note.noteid);
 
-					Log.v("Jason", "Note ID in MainInput: " + note.noteid);
+					//Log.v("Jason", "Note ID in MainInput: " + note.noteid);
 
 					if (isRecording == true) {
 						fi.putExtra("isRecording", 1);
@@ -478,7 +477,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 	public void onResume() {
 		super.onResume();
 
-		Log.v("Jason", "Cycle: MainInput onResume");
+		//Log.v("Jason", "Cycle: MainInput onResume");
 
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -508,7 +507,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.v("Jason", "Cycle: MainInput onPause");
+		//Log.v("Jason", "Cycle: MainInput onPause");
 		// Background GPS.
 		if (timer != null)
 			timer.cancel();
@@ -520,7 +519,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		Log.v("Jason", "Cycle: MainInput onDestroyView");
+		//Log.v("Jason", "Cycle: MainInput onDestroyView");
 		// Toast.makeText(getActivity(), "Record Destroyed",
 		// Toast.LENGTH_LONG).show();
 		// Fragment fragment =

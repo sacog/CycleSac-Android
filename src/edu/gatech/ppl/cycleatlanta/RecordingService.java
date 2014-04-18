@@ -48,7 +48,6 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 
 public class RecordingService extends Service implements LocationListener {
 	FragmentMainInput recordActivity;
@@ -231,7 +230,7 @@ public class RecordingService extends Service implements LocationListener {
 				updateTripStats(loc);
 				boolean rtn = trip.addPointNow(loc, currentTime,
 						distanceTraveled);
-				Log.v("Jason", "Distance Traveled: " + distanceTraveled);
+				//Log.v("Jason", "Distance Traveled: " + distanceTraveled);
 				if (!rtn) {
 					// Log.e("FAIL", "Couldn't write to DB");
 				}
@@ -304,9 +303,13 @@ public class RecordingService extends Service implements LocationListener {
 		Context context = this;
 		CharSequence contentTitle = "Cycle Atlanta - Recording";
 		CharSequence contentText = "Tap to see your ongoing trip";
-		Intent notificationIntent = new Intent(context, FragmentMainInput.class);
+		Intent notificationIntent = new Intent(context, TabsConfig.class);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+	            | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
 				notificationIntent, 0);
+		
+		//notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		notification.setLatestEventInfo(context, contentTitle, contentText,
 				contentIntent);
 
@@ -345,7 +348,7 @@ public class RecordingService extends Service implements LocationListener {
 
 	void notifyListeners() {
 		if (recordActivity != null) {
-			Log.v("Jason", "Distance Traveled: hahaha");
+			//Log.v("Jason", "Distance Traveled: hahaha");
 			recordActivity.updateStatus(trip.numpoints, distanceTraveled,
 					curSpeed, maxSpeed);
 		}

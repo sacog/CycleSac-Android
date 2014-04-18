@@ -36,7 +36,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Simple database access helper class. Defines the basic CRUD operations, and
@@ -136,8 +135,8 @@ public class DbAdapter {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-					+ newVersion + ", which will simply add a new Note table.");
+//			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
+//					+ newVersion + ", which will simply add a new Note table.");
 
 			// Data Migration:
 			// New Install: this function not called. onCreate called.

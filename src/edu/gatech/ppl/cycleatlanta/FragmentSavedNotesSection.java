@@ -10,7 +10,6 @@ import android.database.SQLException;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,7 +46,7 @@ public class FragmentSavedNotesSection extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.activity_saved_notes, null);
 
-		Log.v("Jason", "Cycle: SavedNotes onCreateView");
+		//Log.v("Jason", "Cycle: SavedNotes onCreateView");
 
 		setHasOptionsMenu(true);
 
@@ -213,7 +212,7 @@ public class FragmentSavedNotesSection extends Fragment {
 		// may be called multiple times if the mode is invalidated.
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			Log.v("Jason", "Prepare");
+			//Log.v("Jason", "Prepare");
 			saveMenuItemDelete = menu.getItem(0);
 			saveMenuItemDelete.setEnabled(false);
 			saveMenuItemUpload = menu.getItem(1);
@@ -226,7 +225,7 @@ public class FragmentSavedNotesSection extends Fragment {
 								.getColumnIndex("notestatus")) - 1);
 				if (flag == 0) {
 					storedID = allNotes.getLong(allNotes.getColumnIndex("_id"));
-					Log.v("Jason", "" + storedID);
+					//Log.v("Jason", "" + storedID);
 					break;
 				}
 			}
@@ -398,20 +397,20 @@ public class FragmentSavedNotesSection extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.v("Jason", "Cycle: SavedNotes onResume");
+		//Log.v("Jason", "Cycle: SavedNotes onResume");
 		populateNoteList(listSavedNotes);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.v("Jason", "Cycle: SavedNotes onPause");
+		//Log.v("Jason", "Cycle: SavedNotes onPause");
 	}
 
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		Log.v("Jason", "Cycle: SavedNotes onDestroyView");
+		//Log.v("Jason", "Cycle: SavedNotes onDestroyView");
 	}
 
 	/* Creates the menu items */

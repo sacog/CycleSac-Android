@@ -10,7 +10,6 @@ import android.database.SQLException;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,7 +46,7 @@ public class FragmentSavedTripsSection extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.activity_saved_trips, null);
 
-		Log.v("Jason", "Cycle: SavedTrips onCreateView");
+		//Log.v("Jason", "Cycle: SavedTrips onCreateView");
 
 		setHasOptionsMenu(true);
 
@@ -213,7 +212,7 @@ public class FragmentSavedTripsSection extends Fragment {
 		// may be called multiple times if the mode is invalidated.
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			Log.v("Jason", "Prepare");
+			//Log.v("Jason", "Prepare");
 			saveMenuItemDelete = menu.getItem(0);
 			saveMenuItemDelete.setEnabled(false);
 			saveMenuItemUpload = menu.getItem(1);
@@ -225,7 +224,7 @@ public class FragmentSavedTripsSection extends Fragment {
 						* (allTrips.getInt(allTrips.getColumnIndex("status")) - 1);
 				if (flag == 0) {
 					storedID = allTrips.getLong(allTrips.getColumnIndex("_id"));
-					Log.v("Jason", "" + storedID);
+					//Log.v("Jason", "" + storedID);
 					break;
 				}
 			}
@@ -399,20 +398,20 @@ public class FragmentSavedTripsSection extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.v("Jason", "Cycle: SavedTrips onResume");
+		//Log.v("Jason", "Cycle: SavedTrips onResume");
 		populateTripList(listSavedTrips);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.v("Jason", "Cycle: SavedTrips onPause");
+		//Log.v("Jason", "Cycle: SavedTrips onPause");
 	}
 
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		Log.v("Jason", "Cycle: SavedTrips onDestroyView");
+		//Log.v("Jason", "Cycle: SavedTrips onDestroyView");
 	}
 
 	/* Creates the menu items */

@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +59,7 @@ public class SavedNotesAdapter extends SimpleCursorAdapter {
 				.getColumnIndex("notetype"))]);
 
 		int status = cursor.getInt(cursor.getColumnIndex("notestatus"));
-		Log.v("Jason", "Status: " + status);
+		//Log.v("Jason", "Status: " + status);
 
 		if (status == 2) {
 			switch (cursor.getInt(cursor.getColumnIndex("notetype"))) {

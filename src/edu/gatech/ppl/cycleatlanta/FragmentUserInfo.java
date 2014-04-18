@@ -145,7 +145,8 @@ public class FragmentUserInfo extends Fragment {
 				break;
 			case PREF_CYCLEFREQ:
 				((Spinner) rootView.findViewById(R.id.cyclefreqSpinner))
-						.setSelection(((Integer) p.getValue()).intValue());
+				.setSelection(((Integer) p.getValue()).intValue()/100+1);
+				//Log.v("Jason", "Prefs: "+((Integer) p.getValue()).intValue()/100+1);
 				// ((SeekBar)
 				// findViewById(R.id.SeekCycleFreq)).setProgress(((Integer)
 				// p.getValue()).intValue());
@@ -212,8 +213,10 @@ public class FragmentUserInfo extends Fragment {
 		editor.putString("" + PREF_EMAIL, ((EditText) getActivity()
 				.findViewById(R.id.TextEmail)).getText().toString());
 
-		editor.putInt("" + PREF_CYCLEFREQ, ((Spinner) getActivity()
-				.findViewById(R.id.cyclefreqSpinner)).getSelectedItemPosition());
+		editor.putInt("" + PREF_CYCLEFREQ, (((Spinner) getActivity()
+				.findViewById(R.id.cyclefreqSpinner)).getSelectedItemPosition()-1)*100);
+		
+		//Log.v("Jason", "Prefs: "+(((Spinner) getActivity().findViewById(R.id.cyclefreqSpinner)).getSelectedItemPosition()-1)*100);
 		// editor.putInt("" + PREF_CYCLEFREQ, ((SeekBar)
 		// findViewById(R.id.SeekCycleFreq)).getProgress());
 

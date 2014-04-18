@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +13,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -48,7 +49,7 @@ public class TabsConfig extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tabs_config);
 
-		Log.v("Jason", "Cycle: TabsConfig onCreate");
+		//Log.v("Jason", "Cycle: TabsConfig onCreate");
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -222,19 +223,21 @@ public class TabsConfig extends FragmentActivity implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.v("Jason", "Cycle: TabsConfig onResume");
+		//Log.v("Jason", "Cycle: TabsConfig onResume");
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.v("Jason", "Cycle: TabsConfig onPause");
+		//Log.v("Jason", "Cycle: TabsConfig onPause");
 	}
 
 	@Override
 	public void onDestroy() {
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager.cancelAll();
 		super.onDestroy();
-		Log.v("Jason", "Cycle: TabsConfig onDestroy");
+		//Log.v("Jason", "Cycle: TabsConfig onDestroy");
 	}
 	
 	// 2.0 and above

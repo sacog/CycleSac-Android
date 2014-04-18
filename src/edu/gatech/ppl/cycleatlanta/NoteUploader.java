@@ -46,7 +46,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.Settings.System;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -300,8 +299,8 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 			int serverResponseCode = conn.getResponseCode();
 			String serverResponseMessage = conn.getResponseMessage();
 			// JSONObject responseData = new JSONObject(serverResponseMessage);
-			Log.v("Jason", "HTTP Response is : " + serverResponseMessage + ": "
-					+ serverResponseCode);
+//			Log.v("Jason", "HTTP Response is : " + serverResponseMessage + ": "
+//					+ serverResponseCode);
 			if (serverResponseCode == 201 || serverResponseCode == 202) {
 				mDb.open();
 				mDb.updateNoteStatus(currentNoteId, NoteData.STATUS_SENT);
