@@ -184,7 +184,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 		user.put(USER_GENDER,
 				settings.getInt("" + FragmentUserInfo.PREF_GENDER, 0));
 		user.put(USER_CYCLING_FREQUENCY,
-				settings.getInt("" + FragmentUserInfo.PREF_GENDER, 0) / 100);
+				settings.getInt("" + FragmentUserInfo.PREF_GENDER, 0) / 100 + 1);
 		// Integer.parseInt(settings.getString(""+UserInfoActivity.PREF_CYCLEFREQ,
 		// "0"))
 		user.put(USER_ETHNICITY,

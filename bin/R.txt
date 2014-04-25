@@ -85,7 +85,7 @@ int drawable ic_plusone_medium_off_client 0x7f020025
 int drawable ic_plusone_small_off_client 0x7f020026
 int drawable ic_plusone_standard_off_client 0x7f020027
 int drawable ic_plusone_tall_off_client 0x7f020028
-int drawable icon25 0x7f020029
+int drawable icon36 0x7f020029
 int drawable icon48 0x7f02002a
 int drawable icon72 0x7f02002b
 int drawable lcdscreen 0x7f02002c

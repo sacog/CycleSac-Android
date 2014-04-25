@@ -218,7 +218,7 @@ containing a value of this type.
         public static final int ic_plusone_small_off_client=0x7f020026;
         public static final int ic_plusone_standard_off_client=0x7f020027;
         public static final int ic_plusone_tall_off_client=0x7f020028;
-        public static final int icon25=0x7f020029;
+        public static final int icon36=0x7f020029;
         public static final int icon48=0x7f02002a;
         public static final int icon72=0x7f02002b;
         public static final int lcdscreen=0x7f02002c;

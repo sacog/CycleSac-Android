@@ -286,7 +286,7 @@ public class RecordingService extends Service implements LocationListener {
 
 	private void setNotification() {
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		int icon = R.drawable.icon25;
+		int icon = R.drawable.icon36;
 		CharSequence tickerText = "Recording...";
 		long when = System.currentTimeMillis();
 
