@@ -371,7 +371,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 
 		HttpClient client = new DefaultHttpClient();
 		// TODO: Server URL
-		final String postUrl = "http://cycleatlanta.org/post/";
+		final String postUrl = "http://cycleatlanta.org/post_dev/";
 		HttpPost postRequest = new HttpPost(postUrl);
 
 		try {

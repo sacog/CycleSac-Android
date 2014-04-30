@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -93,7 +95,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 			Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//Log.v("Jason", "Cycle: MainInput onCreateView");
+		// Log.v("Jason", "Cycle: MainInput onCreateView");
 
 		// Toast.makeText(getActivity(), "Record Created",
 		// Toast.LENGTH_LONG).show();
@@ -171,10 +173,15 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 					// Before we go to record, check GPS status
 					final LocationManager manager = (LocationManager) getActivity()
 							.getSystemService(Context.LOCATION_SERVICE);
+					//final SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
 					if (!manager
 							.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 						buildAlertMessageNoGps();
-					} else {
+					} 
+//					else if (sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) == null) {
+//						buildAlertMessageNoMag();
+//					} 
+					else {
 						// startActivity(i);
 						// call function in Recording Activity
 						// Toast.makeText(getApplicationContext(),
@@ -204,7 +211,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 
 					fi.putExtra("noteid", note.noteid);
 
-					//Log.v("Jason", "Note ID in MainInput: " + note.noteid);
+					// Log.v("Jason", "Note ID in MainInput: " + note.noteid);
 
 					if (isRecording == true) {
 						fi.putExtra("isRecording", 1);
@@ -393,6 +400,20 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 		final AlertDialog alert = builder.create();
 		alert.show();
 	}
+	
+	private void buildAlertMessageNoMag() {
+    	final AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(getActivity());
+
+    	dlgAlert.setMessage("Your phone's Magnetic sensor is disabled. Cycle Atlanta needs Magnetic sensing for road sensing interactions.");
+    	dlgAlert.setPositiveButton("Ok",
+    		    new DialogInterface.OnClickListener() {
+    		        public void onClick(DialogInterface dialog, int which) {
+    		          //dismiss the dialog
+    		        }
+    		    });
+    	dlgAlert.setCancelable(false);
+    	dlgAlert.create().show();
+    }
 
 	private void buildAlertMessageSaveClicked() {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(
@@ -478,7 +499,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 	public void onResume() {
 		super.onResume();
 
-		//Log.v("Jason", "Cycle: MainInput onResume");
+		// Log.v("Jason", "Cycle: MainInput onResume");
 
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -508,7 +529,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 	@Override
 	public void onPause() {
 		super.onPause();
-		//Log.v("Jason", "Cycle: MainInput onPause");
+		// Log.v("Jason", "Cycle: MainInput onPause");
 		// Background GPS.
 		if (timer != null)
 			timer.cancel();
@@ -520,7 +541,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		//Log.v("Jason", "Cycle: MainInput onDestroyView");
+		// Log.v("Jason", "Cycle: MainInput onDestroyView");
 		// Toast.makeText(getActivity(), "Record Destroyed",
 		// Toast.LENGTH_LONG).show();
 		// Fragment fragment =

@@ -231,7 +231,7 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 
 	boolean uploadOneNote(long currentNoteId) {
 		boolean result = false;
-		final String postUrl = "http://cycleatlanta.org/post/";
+		final String postUrl = "http://cycleatlanta.org/post_dev/";
 
 		// byte[] postBodyDataZipped;
 		//
