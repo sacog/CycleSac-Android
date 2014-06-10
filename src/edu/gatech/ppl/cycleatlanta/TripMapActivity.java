@@ -116,13 +116,14 @@ public class TripMapActivity extends Activity {
 //			Log.v("Jason", String.valueOf(trip.startpoint.longitude * 1E-6));
 //			Log.v("Jason", String.valueOf(trip.endpoint.latitude * 1E-6));
 //			Log.v("Jason", String.valueOf(trip.endpoint.longitude * 1E-6));
-
+			
+			//update resources to new markers, and change anchor position
+			//if the marker is too big, use tripstart instead of tripstart_high
 			if (trip.startpoint != null) {
 				map.addMarker(new MarkerOptions()
 						.icon(BitmapDescriptorFactory
-								.fromResource(R.drawable.pingreen))
-						.anchor(0.0f, 1.0f) // Anchors the marker on the bottom
-											// left
+								.fromResource(R.drawable.tripstart_high))
+						.anchor(0.0f, 0.0f) // Anchors the marker in the middle
 						.position(
 								new LatLng(trip.startpoint.latitude * 1E-6,
 										trip.startpoint.longitude * 1E-6)));
@@ -133,9 +134,8 @@ public class TripMapActivity extends Activity {
 			if (trip.endpoint != null) {
 				map.addMarker(new MarkerOptions()
 						.icon(BitmapDescriptorFactory
-								.fromResource(R.drawable.pinpurple))
-						.anchor(0.0f, 1.0f) // Anchors the marker on the bottom
-											// left
+								.fromResource(R.drawable.tripend_high))
+						.anchor(0.0f, 0.0f) // Anchors the marker in the middle
 						.position(
 								new LatLng(trip.endpoint.latitude * 1E-6,
 										trip.endpoint.longitude * 1E-6)));

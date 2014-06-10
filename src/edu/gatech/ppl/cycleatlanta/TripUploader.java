@@ -184,7 +184,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 		user.put(USER_GENDER,
 				settings.getInt("" + FragmentUserInfo.PREF_GENDER, 0));
 		user.put(USER_CYCLING_FREQUENCY,
-				settings.getInt("" + FragmentUserInfo.PREF_GENDER, 0) / 100 + 1);
+				settings.getInt("" + FragmentUserInfo.PREF_CYCLEFREQ, 0) / 100 + 1);
 		// Integer.parseInt(settings.getString(""+UserInfoActivity.PREF_CYCLEFREQ,
 		// "0"))
 		user.put(USER_ETHNICITY,
@@ -371,7 +371,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 
 		HttpClient client = new DefaultHttpClient();
 		// TODO: Server URL
-		final String postUrl = "http://cycleatlanta.org/post_dev/";
+		final String postUrl = "http://cycleatlanta.org/post/";
 		HttpPost postRequest = new HttpPost(postUrl);
 
 		try {

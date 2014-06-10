@@ -246,9 +246,13 @@ containing a value of this type.
         public static final int shopping_high=0x7f020042;
         public static final int social=0x7f020043;
         public static final int social_high=0x7f020044;
-        public static final int whitebutton=0x7f020045;
-        public static final int workrel=0x7f020046;
-        public static final int workrel_high=0x7f020047;
+        public static final int tripend=0x7f020045;
+        public static final int tripend_high=0x7f020046;
+        public static final int tripstart=0x7f020047;
+        public static final int tripstart_high=0x7f020048;
+        public static final int whitebutton=0x7f020049;
+        public static final int workrel=0x7f02004a;
+        public static final int workrel_high=0x7f02004b;
     }
     public static final class id {
         public static final int ImageNoteType=0x7f070045;

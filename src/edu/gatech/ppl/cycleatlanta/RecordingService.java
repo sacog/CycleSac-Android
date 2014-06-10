@@ -39,28 +39,19 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorManager;
-import android.hardware.SensorEventListener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Vibrator;
-import android.provider.Settings;
 
-public class RecordingService extends Service implements LocationListener, SensorEventListener {
+public class RecordingService extends Service implements LocationListener {
 	FragmentMainInput recordActivity;
 	LocationManager lm = null;
-	SensorManager sm = null;
-	Sensor magSensor = null;
 	DbAdapter mDb;
 
 	// Bike bell variables
@@ -69,10 +60,6 @@ public class RecordingService extends Service implements LocationListener, Senso
 	Timer timer;
 	SoundPool soundpool;
 	int bikebell;
-
-	Vibrator vibe;
-	MediaPlayer mp;
-
 	final Handler mHandler = new Handler();
 	final Runnable mRemindUser = new Runnable() {
 		public void run() {
@@ -82,14 +69,6 @@ public class RecordingService extends Service implements LocationListener, Senso
 
 	// Aspects of the currently recording trip
 	double latestUpdate;
-	double lastMag = 0;
-	double lastBumpRecord = 0;
-	float lastValue = 0;
-	double lastCal = 0;
-	double magStartTime = 0;
-	boolean isBump = false;
-	int numBumps = 0;
-
 	Location lastLocation;
 	float distanceTraveled;
 	float curSpeed, maxSpeed;
@@ -114,9 +93,6 @@ public class RecordingService extends Service implements LocationListener, Senso
 		super.onCreate();
 		soundpool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
 		bikebell = soundpool.load(this.getBaseContext(), R.raw.bikebell, 1);
-
-		vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-		mp = MediaPlayer.create(this, Settings.System.DEFAULT_NOTIFICATION_URI);
 	}
 
 	@Override
@@ -179,19 +155,12 @@ public class RecordingService extends Service implements LocationListener, Senso
 		curSpeed = maxSpeed = distanceTraveled = 0.0f;
 		lastLocation = null;
 
-		numBumps = 0;
-
 		// Add the notify bar and blinking light
 		setNotification();
 
 		// Start listening for GPS updates!
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
-		// Start listening for Magnet sensor
-		sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-		magSensor = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-		sm.registerListener(this, magSensor, SensorManager.SENSOR_DELAY_FASTEST);
 
 		// Set up timer for bike bell
 		if (timer != null) {
@@ -211,28 +180,18 @@ public class RecordingService extends Service implements LocationListener, Senso
 		this.state = STATE_PAUSED;
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		lm.removeUpdates(this);
-		
-		sm = (SensorManager)getSystemService(SENSOR_SERVICE);
-		sm.unregisterListener(this);
 	}
 
 	public void resumeRecording() {
 		this.state = STATE_RECORDING;
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-		
-		sm = (SensorManager)getSystemService(SENSOR_SERVICE);
-        magSensor = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        sm.registerListener(this, magSensor, SensorManager.SENSOR_DELAY_FASTEST);
 	}
 
 	public long finishRecording() {
 		this.state = STATE_FULL;
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		lm.removeUpdates(this);
-		
-		sm = (SensorManager)getSystemService(SENSOR_SERVICE);
-		sm.unregisterListener(this);
 
 		clearNotifications();
 
@@ -246,9 +205,6 @@ public class RecordingService extends Service implements LocationListener, Senso
 
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		lm.removeUpdates(this);
-		
-		sm = (SensorManager)getSystemService(SENSOR_SERVICE);
-		sm.unregisterListener(this);
 
 		clearNotifications();
 		this.state = STATE_IDLE;
@@ -274,7 +230,7 @@ public class RecordingService extends Service implements LocationListener, Senso
 				updateTripStats(loc);
 				boolean rtn = trip.addPointNow(loc, currentTime,
 						distanceTraveled);
-				// Log.v("Jason", "Distance Traveled: " + distanceTraveled);
+				//Log.v("Jason", "Distance Traveled: " + distanceTraveled);
 				if (!rtn) {
 					// Log.e("FAIL", "Couldn't write to DB");
 				}
@@ -349,11 +305,11 @@ public class RecordingService extends Service implements LocationListener, Senso
 		CharSequence contentText = "Tap to see your ongoing trip";
 		Intent notificationIntent = new Intent(context, TabsConfig.class);
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+	            | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
 				notificationIntent, 0);
-
-		// notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		
+		//notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		notification.setLatestEventInfo(context, contentTitle, contentText,
 				contentIntent);
 
@@ -392,94 +348,9 @@ public class RecordingService extends Service implements LocationListener, Senso
 
 	void notifyListeners() {
 		if (recordActivity != null) {
-			// Log.v("Jason", "Distance Traveled: hahaha");
+			//Log.v("Jason", "Distance Traveled: hahaha");
 			recordActivity.updateStatus(trip.numpoints, distanceTraveled,
 					curSpeed, maxSpeed);
 		}
-	}
-	
-	@Override
-	public void onAccuracyChanged(Sensor arg0, int arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
-		float x = event.values[0];
-		float y =  event.values[1];
-		float z = event.values[2];
-		float value = Math.abs(x)+Math.abs(y)+Math.abs(z);
-		double cal = Math.sqrt(x*x+y*y+z*z);
-		double currentTime = System.currentTimeMillis();
-
-		// first time
-		if(lastCal == 0 && lastMag == 0){
-			magStartTime = currentTime;
-			lastValue = value;
-			lastMag = currentTime;		//last calibration time
-			lastBumpRecord = currentTime;	//last bump recording time
-			lastCal = cal;		//calibration
-		}
-
-		// first 5 seconds calibrate
-		if(currentTime - magStartTime < 5000){
-			lastCal = (lastCal+cal)/2;
-			lastMag = currentTime;
-			lastValue = value;
-			return;
-		}
-
-		//TODO: it's bump
-		if(currentTime - lastBumpRecord > 999){
-			if(cal > 2 * lastCal){
-				if(!isBump){
-					isBump = true;
-					//if(currentTime - lastBumpRecord > 2100){
-					lastBumpRecord = currentTime;
-					numBumps++;
-					vibe.vibrate(500);
-					mp.start();
-
-					boolean rtn = true;
-					if(lastLocation != null){
-						//add specific note with "mag" flag
-						//rtn = trip.addFlagNow(lastLocation, currentTime);
-					}
-					else{
-						// TO BE REMOVED
-						lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-						Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-						//add specific note with "mag" flag
-						//rtn = trip.addFlagNow(location, currentTime);
-						//System.out.println("#########"+location.getLatitude()+"     "+location.getLongitude());
-					}
-					if (!rtn) {
-						System.out.println("could not save flag!!####!!!###");
-					}
-
-					// Update the status page every time, if we can.
-					notifyListeners();
-					//}
-				}
-			}
-			else if(cal < 1.5 * lastCal){
-				isBump = false;
-			}
-		}
-
-		//calibrate each second
-		if(currentTime - lastMag > 999){
-			if(!isBump){
-				lastCal = (lastCal+cal)/2;
-				lastMag = currentTime;
-			}
-		}
-
- 		//Location lastLocation;
-		//TripData trip;
-		//double currentTime = System.currentTimeMillis();
-
 	}
 }
