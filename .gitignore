@@ -12,6 +12,15 @@ Thumbs.db
 *.lock
 profile
 
+.svn
+*.class
+ 
+# Package Files #
+*.jar
+*.war
+*.ear
+*.db
+
 ####
 # Xcode temporary files that should never be committed
 # 
@@ -99,3 +108,34 @@ xcuserdata
 # We're using source-control, so this is a "feature" that we do not want!
 
 *.moved-aside
+
+######################
+# Eclipse
+######################
+ 
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+/src/main/resources/rebel.xml
+# External tool builders
+.externalToolBuilders/
+ 
+# Locally stored "Eclipse launch configurations"
+*.launch
+ 
+# CDT-specific
+.cproject
+ 
+# PDT-specific
+.buildpath
