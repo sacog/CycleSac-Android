@@ -44,7 +44,7 @@ public class FragmentSavedTripsSection extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.activity_saved_trips, null);
+		View rootView = inflater.inflate(R.layout.activity_saved_trips, container, false);
 
 		//Log.v("Jason", "Cycle: SavedTrips onCreateView");
 
@@ -53,7 +53,7 @@ public class FragmentSavedTripsSection extends Fragment {
 		listSavedTrips = (ListView) rootView
 				.findViewById(R.id.listViewSavedTrips);
 		populateTripList(listSavedTrips);
-		
+
 		final DbAdapter mDb = new DbAdapter(getActivity());
 		mDb.open();
 
@@ -65,7 +65,7 @@ public class FragmentSavedTripsSection extends Fragment {
 					Toast.LENGTH_SHORT).show();
 		}
 		mDb.close();
-		
+
 		tripIdArray.clear();
 
 //		listSavedTrips.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -196,7 +196,7 @@ public class FragmentSavedTripsSection extends Fragment {
 		return rootView;
 	}
 
-	private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+	private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
 		// Called when the action mode is created; startActionMode() was called
 		@Override

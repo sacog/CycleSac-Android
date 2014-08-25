@@ -19,6 +19,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -241,9 +242,26 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 		txtCurSpeed = (TextView) rootView.findViewById(R.id.textViewSpeed);
 
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+		//hack to fix map view artifacting when switching tabs in 4.0.4
+		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+	            setMapTransparent((ViewGroup) rootView);
+	    }
 
 		return rootView;
 	}
+
+	//hack for 4.0.4 map view artifacting
+	private void setMapTransparent(ViewGroup group) {
+        int childCount = group.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View child = group.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                setMapTransparent((ViewGroup) child);
+            } else if (child instanceof SurfaceView) {
+                child.setBackgroundColor(0x00000000);
+            }
+        }
+    }
 
 	// @Override
 	// public View onCreateView(LayoutInflater inflater, ViewGroup container,

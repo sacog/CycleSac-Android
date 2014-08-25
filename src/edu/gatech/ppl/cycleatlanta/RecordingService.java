@@ -256,7 +256,7 @@ public class RecordingService extends Service implements LocationListener {
 	// END LocationListener implementation:
 
 	public void remindUser() {
-		soundpool.play(bikebell, 1.0f, 1.0f, 1, 0, 1.0f);
+		//soundpool.play(bikebell, 1.0f, 1.0f, 1, 0, 1.0f);
 
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		int icon = R.drawable.icon48;
@@ -308,7 +308,7 @@ public class RecordingService extends Service implements LocationListener {
 	            | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
 				notificationIntent, 0);
-		
+
 		//notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		notification.setLatestEventInfo(context, contentTitle, contentText,
 				contentIntent);

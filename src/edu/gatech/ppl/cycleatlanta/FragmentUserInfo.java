@@ -215,7 +215,7 @@ public class FragmentUserInfo extends Fragment {
 
 		editor.putInt("" + PREF_CYCLEFREQ, (((Spinner) getActivity()
 				.findViewById(R.id.cyclefreqSpinner)).getSelectedItemPosition()-1)*100);
-		
+
 		//Log.v("Jason", "Prefs: "+(((Spinner) getActivity().findViewById(R.id.cyclefreqSpinner)).getSelectedItemPosition()-1)*100);
 		// editor.putInt("" + PREF_CYCLEFREQ, ((SeekBar)
 		// findViewById(R.id.SeekCycleFreq)).getProgress());
