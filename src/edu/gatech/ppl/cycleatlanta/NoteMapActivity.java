@@ -79,7 +79,7 @@ public class NoteMapActivity extends Activity {
 					map.addMarker(new MarkerOptions()
 							.icon(BitmapDescriptorFactory
 									.fromResource(R.drawable.noteissuemapglyph_high))
-							.anchor(0.0f, 1.0f) // Anchors the marker on the
+							.anchor(0.5f, 0.5f) // Anchors the marker on the
 												// bottom left
 							.position(
 									new LatLng(note.latitude * 1E-6,
@@ -88,7 +88,7 @@ public class NoteMapActivity extends Activity {
 					map.addMarker(new MarkerOptions()
 							.icon(BitmapDescriptorFactory
 									.fromResource(R.drawable.noteassetmapglyph_high))
-							.anchor(0.0f, 1.0f) // Anchors the marker on the
+							.anchor(0.5f, 0.5f) // Anchors the marker on the
 												// bottom left
 							.position(
 									new LatLng(note.latitude * 1E-6,

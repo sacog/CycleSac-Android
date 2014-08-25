@@ -117,7 +117,7 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
+	
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -134,10 +134,12 @@
                 android:id="@+id/buttonNoteThis"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
-                android:background="@android:color/white"
+                android:background="@drawable/note_button_shape"                
                 android:textColor="#d17242"
                 android:textStyle="bold"
-                android:text="Note this..." />
+                android:textSize="20dp"
+                android:text="Note this..."                 
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -151,10 +153,11 @@
                 android:id="@+id/buttonStart"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
-                android:background="#4d7d36"
+                android:background="@drawable/record_button_shape"
                 android:onClick="OnSave"
                 android:textColor="#ffffff"
-                android:textStyle="bold" 
+                android:textStyle="bold"
+                android:textSize="25dp"                
                 android:text="Start" />
         </LinearLayout>
     </LinearLayout>

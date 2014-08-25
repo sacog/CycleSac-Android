@@ -1,6 +1,8 @@
 package edu.gatech.ppl.cycleatlanta;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import android.app.Activity;
@@ -8,8 +10,14 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings.System;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +37,7 @@ public class NoteDetailActivity extends Activity {
 	ImageButton imageButton;
 	ImageView imageView;
 	String imageURL = "";
+	String tempImagePath;
 	byte[] noteImage;
 	Bitmap photo;
 	private static final int CAMERA_REQUEST = 1888;
@@ -58,24 +67,75 @@ public class NoteDetailActivity extends Activity {
 		addPhotoButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				//Log.v("Jason", "Add Photo");
-				Intent cameraIntent = new Intent(
-						android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+				Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+				File photoTempFile;
+				try {
+					File tempDir= Environment.getExternalStorageDirectory();
+				    tempDir=new File(tempDir.getAbsolutePath()+"/.temp/");
+				    if(!tempDir.exists())
+				    {
+				        tempDir.mkdir();
+				    }
+				    photoTempFile = File.createTempFile("tempNoteImage", ".jpg", tempDir);
+				    photoTempFile.delete();
+				}
+				catch(Exception e) {
+					Log.v("Error","Can't create temp photo file, proceed w/o full size image");
+					tempImagePath=null;
+					startActivityForResult(cameraIntent, CAMERA_REQUEST);
+					return;
+				}
+				tempImagePath = photoTempFile.getAbsolutePath();
+				cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoTempFile));
 				startActivityForResult(cameraIntent, CAMERA_REQUEST);
 			}
 		});
 	}
 
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-			photo = (Bitmap) data.getExtras().get("data");
-			imageView.setImageBitmap(photo);
-			//Log.v("Jason", "Image Photo: " + photo);
+		    if(tempImagePath!=null){
+		    	//global variable w/ full-sized photo to be added to the db and uploaded
+		    	BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+		        //decode for db store
+		        bmOptions.inJustDecodeBounds = false;
+		        bmOptions.inSampleSize = 4;
+		        photo = BitmapFactory.decodeFile(tempImagePath, bmOptions);
+		        //rotate according to how the image was taken
+				try {
+					ExifInterface exif = new ExifInterface(tempImagePath);
+					String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+			        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+			        int rotationAngle = 0;
+			        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+			        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+			        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+
+			        Matrix matrix = new Matrix();
+			        matrix.setRotate(rotationAngle, (float) photo.getWidth() / 2, (float) photo.getHeight() / 2);
+			        photo = Bitmap.createBitmap(photo, 0, 0, photo.getWidth(), photo.getHeight(), matrix, true);
+				} catch (IOException e) {
+					// no-op for now, couldn't load the exif data from the saved file
+				}
+		    	//scale the photo for imageView
+		    	//imageView.setImageBitmap(Bitmap.createScaledBitmap(photo, imageView.getWidth(), imageView.getHeight(), true));
+		    	imageView.setImageBitmap(photo);
+		    }else{
+		    	photo = (Bitmap) data.getExtras().get("data");
+		    	imageView.setImageBitmap(photo);
+		    }
+		}
+		//remove the saved file from external storage now that it will be saved to the db.
+		if(tempImagePath!=null){
+			File deleteTemp = new File(tempImagePath);
+			deleteTemp.delete();
 		}
 	}
 
 	public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		bitmap.compress(CompressFormat.PNG, 0, outputStream);
+		bitmap.compress(CompressFormat.JPEG, 70, outputStream);
 		return outputStream.toByteArray();
 	}
 
@@ -92,7 +152,6 @@ public class NoteDetailActivity extends Activity {
 		SimpleDateFormat sdfStart2 = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		String date = sdfStart2.format(note.startTime);
 
-		// Save the note details to the phone database. W00t!
 
 		String deviceId = getDeviceId();
 		if (photo != null) {

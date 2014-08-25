@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Cycle Atlanta</string>
-    <string name="title_section4">Setting</string>
+    <string name="title_section4">Profile</string>
     <string name="title_section3">Notes</string>
     <string name="title_section2">Trips</string>
     <string name="title_section1">Record</string>

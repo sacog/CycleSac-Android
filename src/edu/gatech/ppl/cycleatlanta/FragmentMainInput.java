@@ -274,8 +274,9 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 	void cancelRecording() {
 		final Button startButton = (Button) getActivity().findViewById(
 				R.id.buttonStart);
+		startButton.setBackgroundResource(R.drawable.record_button_shape);
 		startButton.setText("Start");
-		startButton.setBackgroundColor(0xFF4d7d36);
+		//startButton.setBackgroundColor(0xFF4d7d36);
 		Intent rService = new Intent(getActivity(), RecordingService.class);
 		ServiceConnection sc = new ServiceConnection() {
 			public void onServiceDisconnected(ComponentName name) {
@@ -321,8 +322,9 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 					trip = TripData.createTrip(getActivity());
 					rs.startRecording(trip);
 					isRecording = true;
+					startButton.setBackgroundResource(R.drawable.save_button_shape);
 					startButton.setText("Save");
-					startButton.setBackgroundColor(0xFF3b529f);
+					//startButton.setBackgroundColor(0xFF3b529f);
 					// MainInputActivity.this.pauseButton.setEnabled(true);
 					// MainInputActivity.this
 					// .setTitle("Cycle Atlanta - Recording...");
@@ -331,8 +333,9 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 					long id = rs.getCurrentTrip();
 					trip = TripData.fetchTrip(getActivity(), id);
 					isRecording = true;
+					startButton.setBackgroundResource(R.drawable.save_button_shape);
 					startButton.setText("Save");
-					startButton.setBackgroundColor(0xFF3b529f);
+					//startButton.setBackgroundColor(0xFF3b529f);
 					// startButton.setBackgroundColor(0xFF0000);
 					// MainInputActivity.this.pauseButton.setEnabled(true);
 					// MainInputActivity.this

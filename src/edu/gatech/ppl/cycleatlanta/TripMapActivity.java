@@ -116,14 +116,14 @@ public class TripMapActivity extends Activity {
 //			Log.v("Jason", String.valueOf(trip.startpoint.longitude * 1E-6));
 //			Log.v("Jason", String.valueOf(trip.endpoint.latitude * 1E-6));
 //			Log.v("Jason", String.valueOf(trip.endpoint.longitude * 1E-6));
-			
+
 			//update resources to new markers, and change anchor position
 			//if the marker is too big, use tripstart instead of tripstart_high
 			if (trip.startpoint != null) {
 				map.addMarker(new MarkerOptions()
 						.icon(BitmapDescriptorFactory
 								.fromResource(R.drawable.tripstart_high))
-						.anchor(0.0f, 0.0f) // Anchors the marker in the middle
+						.anchor(0.5f, 0.5f) // Anchors the marker in the middle
 						.position(
 								new LatLng(trip.startpoint.latitude * 1E-6,
 										trip.startpoint.longitude * 1E-6)));
@@ -135,7 +135,7 @@ public class TripMapActivity extends Activity {
 				map.addMarker(new MarkerOptions()
 						.icon(BitmapDescriptorFactory
 								.fromResource(R.drawable.tripend_high))
-						.anchor(0.0f, 0.0f) // Anchors the marker in the middle
+						.anchor(0.5f, 0.5f) // Anchors the marker in the middle
 						.position(
 								new LatLng(trip.endpoint.latitude * 1E-6,
 										trip.endpoint.longitude * 1E-6)));
@@ -186,7 +186,7 @@ public class TripMapActivity extends Activity {
 				public void onCameraChange(CameraPosition arg0) {
 					// Move camera.
 					map.moveCamera(CameraUpdateFactory.newLatLngBounds(
-							bounds.build(), 50));
+							bounds.build(), 150));
 					// Remove listener to prevent position reset on camera move.
 					map.setOnCameraChangeListener(null);
 				}
