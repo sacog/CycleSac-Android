@@ -500,7 +500,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 		super.onResume();
 
 		//Log.v("Jason", "Cycle: MainInput onResume");
-
+		zoomFlag=1; //enables the map ui to re-zoom to new location after switching back to the map
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
