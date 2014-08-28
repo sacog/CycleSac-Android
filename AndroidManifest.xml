@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="13"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="16" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -89,9 +89,13 @@
             android:label="@string/title_activity_main" >
         </activity>
 
-        <meta-data
+        <meta-data           
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" /> 
+        <meta-data     
             android:name="com.google.android.maps.v2.API_KEY" 
-            android:value="AIzaSyCbkVPDzj-vsJY-kzRQfydOpApYNOC3DLk" /> <!-- Default: AIzaSyC2yCvl0Jt-gnztoITh7WTBABv3KdLeD1o   Cycle Atlanta: AIzaSyCbkVPDzj-vsJY-kzRQfydOpApYNOC3DLk -->
+            android:value="AIzaSyCbkVPDzj-vsJY-kzRQfydOpApYNOC3DLk" />
+            <!-- Debug: AIzaSyB9orX8RcKrVvF8Vg1_yMhIvu59XUW_inw   Cycle Atlanta Release: AIzaSyCbkVPDzj-vsJY-kzRQfydOpApYNOC3DLk -->
     </application>
 
 </manifest>

@@ -41,17 +41,17 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Simple database access helper class. Defines the basic CRUD operations, and
  * gives the ability to list all trips as well as retrieve or modify a specific
  * trip.
- * 
+ *
  * This has been improved from the first version of this tutorial through the
  * addition of better error handling and also using returning a Cursor instead
  * of using a collection of inner classes (which is less scalable and not
  * recommended).
- * 
+ *
  * **This code borrows heavily from Google demo app "Notepad" in the Android
  * SDK**
  */
 public class DbAdapter {
-	private static final int DATABASE_VERSION = 21;
+	private static final int DATABASE_VERSION = 21; //app v1 = 20, app v2 = 21
 
 	public static final String K_TRIP_ROWID = "_id";
 	public static final String K_TRIP_PURP = "purp";
@@ -148,7 +148,7 @@ public class DbAdapter {
 	/**
 	 * Constructor - takes the context to allow the database to be
 	 * opened/created
-	 * 
+	 *
 	 * @param ctx
 	 *            the Context within which to work
 	 */
@@ -160,7 +160,7 @@ public class DbAdapter {
 	 * Open the database. If it cannot be opened, try to create a new instance
 	 * of the database. If it cannot be created, throw an exception to signal
 	 * the failure
-	 * 
+	 *
 	 * @return this (self reference, allowing this to be chained in an
 	 *         initialization call)
 	 * @throws SQLException
@@ -257,7 +257,7 @@ public class DbAdapter {
 
 	/**
 	 * Delete the trip with the given rowId
-	 * 
+	 *
 	 * @param rowId
 	 *            id of note to delete
 	 * @return true if deleted, false otherwise
@@ -268,7 +268,7 @@ public class DbAdapter {
 
 	/**
 	 * Return a Cursor over the list of all notes in the database
-	 * 
+	 *
 	 * @return Cursor over all trips
 	 */
 	public Cursor fetchAllTrips() {
@@ -319,7 +319,7 @@ public class DbAdapter {
 
 	/**
 	 * Return a Cursor positioned at the trip that matches the given rowId
-	 * 
+	 *
 	 * @param rowId
 	 *            id of trip to retrieve
 	 * @return Cursor positioned to matching trip, if found
@@ -405,7 +405,7 @@ public class DbAdapter {
 
 	/**
 	 * Delete the note with the given rowId
-	 * 
+	 *
 	 * @param rowId
 	 *            id of note to delete
 	 * @return true if deleted, false otherwise
@@ -416,7 +416,7 @@ public class DbAdapter {
 
 	/**
 	 * Return a Cursor over the list of all notes in the database
-	 * 
+	 *
 	 * @return Cursor over all notes
 	 */
 	public Cursor fetchAllNotes() {
@@ -467,7 +467,7 @@ public class DbAdapter {
 
 	/**
 	 * Return a Cursor positioned at the note that matches the given rowId
-	 * 
+	 *
 	 * @param rowId
 	 *            id of note to retrieve
 	 * @return Cursor positioned to matching note, if found
