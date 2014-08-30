@@ -44,7 +44,7 @@ public class TripData {
 	int lathigh, lgthigh, latlow, lgtlow, latestlat, latestlgt;
 	int status;
 	float distance;
-	String purp, fancystart, info;
+	String purp, fancystart, info, note;
 	// private ItemizedOverlayTrack gpspoints;
 	private ArrayList<CyclePoint> gpspoints = new ArrayList<CyclePoint>();
 	CyclePoint startpoint, endpoint;
@@ -88,7 +88,7 @@ public class TripData {
 		latlow = (int) (100 * 1E6);
 		lgtlow = (int) (180 * 1E6);
 		lgthigh = (int) (-180 * 1E6);
-		purp = fancystart = info = "";
+		purp = fancystart = info = note = "";
 
 		updateTrip();
 	}
@@ -107,6 +107,7 @@ public class TripData {
 		status = tripdetails.getInt(tripdetails.getColumnIndex("status"));
 		endTime = tripdetails.getDouble(tripdetails.getColumnIndex("endtime"));
 		distance = tripdetails.getFloat(tripdetails.getColumnIndex("distance"));
+		note = tripdetails.getString(tripdetails.getColumnIndex("note"));
 
 		purp = tripdetails.getString(tripdetails.getColumnIndex("purp"));
 		fancystart = tripdetails.getString(tripdetails

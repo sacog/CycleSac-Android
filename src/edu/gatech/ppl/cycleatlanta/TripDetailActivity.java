@@ -52,11 +52,11 @@ public class TripDetailActivity extends Activity {
 		//Log.v("Jason", "Start: " + fancyStartTime);
 
 		// "3.5 miles in 26 minutes"
-		SimpleDateFormat sdf = new SimpleDateFormat("m");
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-		String minutes = sdf.format(trip.endTime - trip.startTime);
-		String fancyEndInfo = String.format("%1.1f miles, %s minutes.  %s",
-				(0.0006212f * trip.distance), minutes, notesToUpload);
+		String duration = sdf.format(trip.endTime - trip.startTime);
+		String fancyEndInfo = String.format("%1.1f miles, %s.  %s",
+				(0.0006212f * trip.distance), duration, notesToUpload);
 
 		// Save the trip details to the phone database. W00t!
 		trip.updateTrip(purpose, fancyStartTime, fancyEndInfo, notesToUpload);

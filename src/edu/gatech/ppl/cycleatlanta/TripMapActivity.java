@@ -96,7 +96,7 @@ public class TripMapActivity extends Activity {
 			TextView t2 = (TextView) findViewById(R.id.TextViewMapInfo);
 			TextView t3 = (TextView) findViewById(R.id.TextViewMapFancyStart);
 			t1.setText(trip.purp);
-			t2.setText(trip.info);
+			t2.setText(trip.info); //fixed trip.info (fancyInfo) to deal w/ hours.
 			t3.setText(trip.fancystart);
 
 			// Center & zoom the map
