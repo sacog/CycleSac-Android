@@ -1,4 +1,4 @@
-package edu.gatech.ppl.cycleatlanta;
+package org.sacog.cyclesac;
 
 import android.content.Context;
 import android.view.LayoutInflater;

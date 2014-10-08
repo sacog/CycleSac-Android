@@ -1,4 +1,4 @@
-package edu.gatech.ppl.cycleatlanta;
+package org.sacog.cyclesac;
 
 import java.util.ArrayList;
 
@@ -23,54 +23,54 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class FragmentSavedNotesSection extends Fragment {
+public class FragmentSavedTripsSection extends Fragment {
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
-	ListView listSavedNotes;
-	ActionMode mActionModeNote;
-	ArrayList<Long> noteIdArray = new ArrayList<Long>();
+	ListView listSavedTrips;
+	ActionMode mActionMode;
+	ArrayList<Long> tripIdArray = new ArrayList<Long>();
 	private MenuItem saveMenuItemDelete, saveMenuItemUpload;
 	String[] values;
 
 	Long storedID;
 
-	Cursor allNotes;
+	Cursor allTrips;
 
-	public SavedNotesAdapter sna;
+	public SavedTripsAdapter sta;
 
-	public FragmentSavedNotesSection() {
+	public FragmentSavedTripsSection() {
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.activity_saved_notes, null);
+		View rootView = inflater.inflate(R.layout.activity_saved_trips, null);
 
-		Log.v("Jason", "Cycle: SavedNotes onCreateView");
+		Log.v("Jason", "Cycle: SavedTrips onCreateView");
 
 		setHasOptionsMenu(true);
 
-		listSavedNotes = (ListView) rootView
-				.findViewById(R.id.listViewSavedNotes);
-		populateNoteList(listSavedNotes);
+		listSavedTrips = (ListView) rootView
+				.findViewById(R.id.listViewSavedTrips);
+		populateTripList(listSavedTrips);
 		
 		final DbAdapter mDb = new DbAdapter(getActivity());
 		mDb.open();
 
-		// Clean up any bad notes from crashes
-		int cleanedNotes = mDb.cleanNoteTables();
-		if (cleanedNotes > 0) {
+		// Clean up any bad trips & coords from crashes
+		int cleanedTrips = mDb.cleanTripsCoordsTables();
+		if (cleanedTrips > 0) {
 			Toast.makeText(getActivity(),
-					"" + cleanedNotes + " bad notes(s) removed.",
+					"" + cleanedTrips + " bad trip(s) removed.",
 					Toast.LENGTH_SHORT).show();
 		}
 		mDb.close();
 		
-		noteIdArray.clear();
+		tripIdArray.clear();
 
-//		listSavedNotes.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-//		listSavedNotes
+//		listSavedTrips.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+//		listSavedTrips
 //				.setMultiChoiceModeListener(new MultiChoiceModeListener() {
 //
 //					@Override
@@ -81,29 +81,29 @@ public class FragmentSavedNotesSection extends Fragment {
 //						// such as update the title in the CAB
 //						// highlight
 //
-//						if (noteIdArray.indexOf(id) > -1) {
-//							noteIdArray.remove(id);
-//							listSavedNotes.getChildAt(position)
+//						if (tripIdArray.indexOf(id) > -1) {
+//							tripIdArray.remove(id);
+//							listSavedTrips.getChildAt(position)
 //									.setBackgroundColor(
 //											Color.parseColor("#80ffffff"));
 //						} else {
-//							noteIdArray.add(id);
-//							listSavedNotes.getChildAt(position)
+//							tripIdArray.add(id);
+//							listSavedTrips.getChildAt(position)
 //									.setBackgroundColor(
 //											Color.parseColor("#ff33b5e5"));
 //						}
 //
 //						// Toast.makeText(getActivity(),
-//						// "Selected: " + noteIdArray, Toast.LENGTH_SHORT)
+//						// "Selected: " + tripIdArray, Toast.LENGTH_SHORT)
 //						// .show();
 //
-//						if (noteIdArray.size() == 0) {
+//						if (tripIdArray.size() == 0) {
 //							saveMenuItemDelete.setEnabled(false);
 //						} else {
 //							saveMenuItemDelete.setEnabled(true);
 //						}
 //
-//						mode.setTitle(noteIdArray.size() + " Selected");
+//						mode.setTitle(tripIdArray.size() + " Selected");
 //					}
 //
 //					@Override
@@ -111,19 +111,19 @@ public class FragmentSavedNotesSection extends Fragment {
 //							MenuItem item) {
 //						// Respond to clicks on the actions in the CAB
 //						switch (item.getItemId()) {
-//						case R.id.action_delete_saved_notes:
-//							// delete selected notes
-//							for (int i = 0; i < noteIdArray.size(); i++) {
-//								deleteNote(noteIdArray.get(i));
+//						case R.id.action_delete_saved_trips:
+//							// delete selected trips
+//							for (int i = 0; i < tripIdArray.size(); i++) {
+//								deleteTrip(tripIdArray.get(i));
 //							}
 //							mode.finish(); // Action picked, so close the CAB
 //							return true;
-//						case R.id.action_upload_saved_notes:
-//							// upload selected notes
-//							// for (int i = 0; i < noteIdArray.size(); i++) {
-//							// retryNoteUpload(noteIdArray.get(i));
+//						case R.id.action_upload_saved_trips:
+//							// upload selected trips
+//							// for (int i = 0; i < tripIdArray.size(); i++) {
+//							// retryTripUpload(tripIdArray.get(i));
 //							// }
-//							retryNoteUpload(storedID);
+//							retryTripUpload(storedID);
 //							mode.finish(); // Action picked, so close the CAB
 //							return true;
 //						default:
@@ -135,7 +135,7 @@ public class FragmentSavedNotesSection extends Fragment {
 //					public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 //						// Inflate the menu for the CAB
 //						MenuInflater inflater = mode.getMenuInflater();
-//						inflater.inflate(R.menu.saved_notes_context_menu, menu);
+//						inflater.inflate(R.menu.saved_trips_context_menu, menu);
 //						return true;
 //					}
 //
@@ -145,14 +145,14 @@ public class FragmentSavedNotesSection extends Fragment {
 //						// activity when
 //						// the CAB is removed. By default, selected items are
 //						// deselected/unchecked.
-//						mActionModeNote = null;
-//						noteIdArray.clear();
-//						for (int i = 0; i < listSavedNotes.getCount(); i++) {
-//							Log.v("Jason", "Count" + listSavedNotes.getCount());
+//						mActionMode = null;
+//						tripIdArray.clear();
+//						for (int i = 0; i < listSavedTrips.getCount(); i++) {
+//							Log.v("Jason", "Count" + listSavedTrips.getCount());
 //							Log.v("Jason",
-//									"Count" + listSavedNotes.getChildCount());
-//							if (listSavedNotes.getChildCount() != 0) {
-//								listSavedNotes.getChildAt(i)
+//									"Count" + listSavedTrips.getChildCount());
+//							if (listSavedTrips.getChildCount() != 0) {
+//								listSavedTrips.getChildAt(i)
 //										.setBackgroundColor(
 //												Color.parseColor("#80ffffff"));
 //							}
@@ -171,13 +171,13 @@ public class FragmentSavedNotesSection extends Fragment {
 //						saveMenuItemUpload = menu.getItem(1);
 //
 //						int flag = 1;
-//						for (int i = 0; i < listSavedNotes.getCount(); i++) {
-//							allNotes.moveToPosition(i);
+//						for (int i = 0; i < listSavedTrips.getCount(); i++) {
+//							allTrips.moveToPosition(i);
 //							flag = flag
-//									* (allNotes.getInt(allNotes
-//											.getColumnIndex("notestatus")) - 1);
+//									* (allTrips.getInt(allTrips
+//											.getColumnIndex("status")) - 1);
 //							if (flag == 0) {
-//								storedID = allNotes.getLong(allNotes
+//								storedID = allTrips.getLong(allTrips
 //										.getColumnIndex("_id"));
 //								Log.v("Jason", "" + storedID);
 //								break;
@@ -189,7 +189,7 @@ public class FragmentSavedNotesSection extends Fragment {
 //							saveMenuItemUpload.setEnabled(true);
 //						}
 //
-//						mode.setTitle(noteIdArray.size() + " Selected");
+//						mode.setTitle(tripIdArray.size() + " Selected");
 //						return false;
 //					}
 //				});
@@ -197,14 +197,14 @@ public class FragmentSavedNotesSection extends Fragment {
 		return rootView;
 	}
 
-	private ActionMode.Callback mActionModeCallbackNote = new ActionMode.Callback() {
+	private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
 		// Called when the action mode is created; startActionMode() was called
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			// Inflate a menu resource providing context menu items
 			MenuInflater inflater = mode.getMenuInflater();
-			inflater.inflate(R.menu.saved_notes_context_menu, menu);
+			inflater.inflate(R.menu.saved_trips_context_menu, menu);
 			return true;
 		}
 
@@ -219,13 +219,12 @@ public class FragmentSavedNotesSection extends Fragment {
 			saveMenuItemUpload = menu.getItem(1);
 
 			int flag = 1;
-			for (int i = 0; i < listSavedNotes.getCount(); i++) {
-				allNotes.moveToPosition(i);
+			for (int i = 0; i < listSavedTrips.getCount(); i++) {
+				allTrips.moveToPosition(i);
 				flag = flag
-						* (allNotes.getInt(allNotes
-								.getColumnIndex("notestatus")) - 1);
+						* (allTrips.getInt(allTrips.getColumnIndex("status")) - 1);
 				if (flag == 0) {
-					storedID = allNotes.getLong(allNotes.getColumnIndex("_id"));
+					storedID = allTrips.getLong(allTrips.getColumnIndex("_id"));
 					Log.v("Jason", "" + storedID);
 					break;
 				}
@@ -236,7 +235,7 @@ public class FragmentSavedNotesSection extends Fragment {
 				saveMenuItemUpload.setEnabled(true);
 			}
 
-			mode.setTitle(noteIdArray.size() + " Selected");
+			mode.setTitle(tripIdArray.size() + " Selected");
 			return false; // Return false if nothing is done
 		}
 
@@ -244,20 +243,20 @@ public class FragmentSavedNotesSection extends Fragment {
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			switch (item.getItemId()) {
-			case R.id.action_delete_saved_notes:
-				// delete selected notes
-				for (int i = 0; i < noteIdArray.size(); i++) {
-					deleteNote(noteIdArray.get(i));
+			case R.id.action_delete_saved_trips:
+				// delete selected trips
+				for (int i = 0; i < tripIdArray.size(); i++) {
+					deleteTrip(tripIdArray.get(i));
 				}
 				mode.finish(); // Action picked, so close the CAB
 				return true;
-			case R.id.action_upload_saved_notes:
-				// upload selected notes
-				// for (int i = 0; i < noteIdArray.size(); i++) {
-				// retryNoteUpload(noteIdArray.get(i));
+			case R.id.action_upload_saved_trips:
+				// upload selected trips
+				// for (int i = 0; i < tripIdArray.size(); i++) {
+				// retryTripUpload(tripIdArray.get(i));
 				// }
 				// Log.v("Jason", "" + storedID);
-				retryNoteUpload(storedID);
+				retryTripUpload(storedID);
 				mode.finish(); // Action picked, so close the CAB
 				return true;
 			default:
@@ -268,36 +267,37 @@ public class FragmentSavedNotesSection extends Fragment {
 		// Called when the user exits the action mode
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
-			mActionModeNote = null;
-			noteIdArray.clear();
-			for (int i = 0; i < listSavedNotes.getCount(); i++) {
-				// Log.v("Jason", "Count" + listSavedNotes.getCount());
-				// Log.v("Jason", "Count" + listSavedNotes.getChildCount());
-				if (listSavedNotes.getChildCount() != 0) {
-					listSavedNotes.getChildAt(i).setBackgroundColor(
+			mActionMode = null;
+			tripIdArray.clear();
+			for (int i = 0; i < listSavedTrips.getCount(); i++) {
+				// Log.v("Jason", "Count" + listSavedTrips.getCount());
+				// Log.v("Jason", "Count" + listSavedTrips.getChildCount());
+				if (listSavedTrips.getChildCount() != 0) {
+					listSavedTrips.getChildAt(i).setBackgroundColor(
 							Color.parseColor("#80ffffff"));
 				}
 			}
 		}
 	};
 
-	void populateNoteList(ListView lv) {
+	void populateTripList(ListView lv) {
 		// Get list from the real phone database. W00t!
 		final DbAdapter mDb = new DbAdapter(getActivity());
 		mDb.open();
 
 		try {
-			allNotes = mDb.fetchAllNotes();
+			allTrips = mDb.fetchAllTrips();
 
-			String[] from = new String[] { "notetype", "noterecorded",
-					"notestatus" };
-			int[] to = new int[] { R.id.TextViewType, R.id.TextViewStart };
+			String[] from = new String[] { "purp", "fancystart", "fancyinfo",
+					"endtime", "start", "distance", "status" };
+			int[] to = new int[] { R.id.TextViewPurpose, R.id.TextViewStart,
+					R.id.TextViewInfo };
 
-			sna = new SavedNotesAdapter(getActivity(),
-					R.layout.saved_notes_list_item, allNotes, from, to,
+			sta = new SavedTripsAdapter(getActivity(),
+					R.layout.saved_trips_list_item, allTrips, from, to,
 					CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
-			lv.setAdapter(sna);
+			lv.setAdapter(sta);
 		} catch (SQLException sqle) {
 			// Do nothing, for now!
 		}
@@ -306,41 +306,41 @@ public class FragmentSavedNotesSection extends Fragment {
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int pos,
 					long id) {
-				allNotes.moveToPosition(pos);
-				if (mActionModeNote == null) {
-					if (allNotes.getInt(allNotes.getColumnIndex("notestatus")) == 2) {
+				allTrips.moveToPosition(pos);
+				if (mActionMode == null) {
+					if (allTrips.getInt(allTrips.getColumnIndex("status")) == 2) {
 						Intent i = new Intent(getActivity(),
-								NoteMapActivity.class);
-						i.putExtra("shownote", id);
+								TripMapActivity.class);
+						i.putExtra("showtrip", id);
 						startActivity(i);
-					} else if (allNotes.getInt(allNotes
-							.getColumnIndex("notestatus")) == 1) {
+					} else if (allTrips.getInt(allTrips
+							.getColumnIndex("status")) == 1) {
 						// Toast.makeText(getActivity(), "Unsent",
 						// Toast.LENGTH_SHORT).show();
-						buildAlertMessageUnuploadedNoteClicked(id);
+						buildAlertMessageUnuploadedTripClicked(id);
 
 						// Log.v("Jason",
-						// ""+allNotes.getLong(allNotes.getColumnIndex("_id")));
+						// ""+allTrips.getLong(allTrips.getColumnIndex("_id")));
 					}
 
 				} else {
 					// highlight
-					if (noteIdArray.indexOf(id) > -1) {
-						noteIdArray.remove(id);
+					if (tripIdArray.indexOf(id) > -1) {
+						tripIdArray.remove(id);
 						v.setBackgroundColor(Color.parseColor("#80ffffff"));
 					} else {
-						noteIdArray.add(id);
+						tripIdArray.add(id);
 						v.setBackgroundColor(Color.parseColor("#ff33b5e5"));
 					}
-					// Toast.makeText(getActivity(), "Selected: " + noteIdArray,
+					// Toast.makeText(getActivity(), "Selected: " + tripIdArray,
 					// Toast.LENGTH_SHORT).show();
-					if (noteIdArray.size() == 0) {
+					if (tripIdArray.size() == 0) {
 						saveMenuItemDelete.setEnabled(false);
 					} else {
 						saveMenuItemDelete.setEnabled(true);
 					}
 
-					mActionModeNote.setTitle(noteIdArray.size() + " Selected");
+					mActionMode.setTitle(tripIdArray.size() + " Selected");
 				}
 			}
 		});
@@ -348,16 +348,16 @@ public class FragmentSavedNotesSection extends Fragment {
 		registerForContextMenu(lv);
 	}
 
-	private void buildAlertMessageUnuploadedNoteClicked(final long position) {
+	private void buildAlertMessageUnuploadedTripClicked(final long position) {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(
 				getActivity());
-		builder.setTitle("Upload Note");
-		builder.setMessage("Do you want to upload this note?");
+		builder.setTitle("Upload Trip");
+		builder.setMessage("Do you want to upload this trip?");
 		builder.setNegativeButton("Upload",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();
-						retryNoteUpload(position);
+						retryTripUpload(position);
 						// Toast.makeText(getActivity(),"Send Clicked: "+position,
 						// Toast.LENGTH_SHORT).show();
 					}
@@ -374,51 +374,52 @@ public class FragmentSavedNotesSection extends Fragment {
 		alert.show();
 	}
 
-	private void retryNoteUpload(long noteId) {
-		NoteUploader uploader = new NoteUploader(getActivity());
-		FragmentSavedNotesSection f3 = (FragmentSavedNotesSection) getActivity()
+	private void retryTripUpload(long tripId) {
+		TripUploader uploader = new TripUploader(getActivity());
+		FragmentSavedTripsSection f2 = (FragmentSavedTripsSection) getActivity()
 				.getSupportFragmentManager().findFragmentByTag(
-						"android:switcher:" + R.id.pager + ":2");
-		uploader.setSavedNotesAdapter(sna);
-		uploader.setFragmentSavedNotesSection(f3);
-		uploader.setListView(listSavedNotes);
+						"android:switcher:" + R.id.pager + ":1");
+		uploader.setSavedTripsAdapter(sta);
+		uploader.setFragmentSavedTripsSection(f2);
+		uploader.setListView(listSavedTrips);
 		uploader.execute();
 	}
 
-	private void deleteNote(long noteId) {
+	private void deleteTrip(long tripId) {
 		DbAdapter mDbHelper = new DbAdapter(getActivity());
 		mDbHelper.open();
-		mDbHelper.deleteNote(noteId);
+		mDbHelper.deleteAllCoordsForTrip(tripId);
+		mDbHelper.deleteTrip(tripId);
 		mDbHelper.close();
-		listSavedNotes.invalidate();
-		populateNoteList(listSavedNotes);
+		listSavedTrips.invalidate();
+		populateTripList(listSavedTrips);
 	}
 
 	// show edit button and hidden delete button
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.v("Jason", "Cycle: SavedNotes onResume");
-		populateNoteList(listSavedNotes);
+		Log.v("Jason", "Cycle: SavedTrips onResume");
+		populateTripList(listSavedTrips);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.v("Jason", "Cycle: SavedNotes onPause");
+		Log.v("Jason", "Cycle: SavedTrips onPause");
 	}
 
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		Log.v("Jason", "Cycle: SavedNotes onDestroyView");
+		Log.v("Jason", "Cycle: SavedTrips onDestroyView");
 	}
 
 	/* Creates the menu items */
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu items for use in the action bar
-		inflater.inflate(R.menu.saved_notes, menu);
+		inflater.inflate(R.menu.saved_trips, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
@@ -427,15 +428,14 @@ public class FragmentSavedNotesSection extends Fragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
-		case R.id.action_edit_saved_notes:
+		case R.id.action_edit_saved_trips:
 			// edit
-			if (mActionModeNote != null) {
+			if (mActionMode != null) {
 				return false;
 			}
 
 			// Start the CAB using the ActionMode.Callback defined above
-			mActionModeNote = getActivity().startActionMode(
-					mActionModeCallbackNote);
+			mActionMode = getActivity().startActionMode(mActionModeCallback);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

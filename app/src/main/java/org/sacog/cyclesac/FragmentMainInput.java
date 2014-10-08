@@ -1,4 +1,4 @@
-package edu.gatech.ppl.cycleatlanta;
+package org.sacog.cyclesac;
 
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
