@@ -328,7 +328,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 			postBodyData = getPostData(currentTripId);
 		} catch (JSONException e) {
 			e.printStackTrace();
-			return result;
+			return false;
 		}
 
 		HttpClient client = new DefaultHttpClient();
@@ -338,7 +338,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 
 		try {
 			// Zip Upload!!!
-			Log.v("Jason", "postBodyData: " + postBodyData.toString());
+			Log.v("Jason", "postBodyData: " + postBodyData);
 			Log.v("Jason", "postBodyData Length: " + postBodyData.length());
 
 			postBodyDataZipped = compress(postBodyData);
@@ -401,7 +401,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 		if (cur != null && cur.getCount() > 0) {
 			// pd.setMessage("Sent. You have previously unsent trips; submitting those now.");
 			while (!cur.isAfterLast()) {
-				unsentTrips.add(Long.valueOf(cur.getLong(0)));
+				unsentTrips.add(cur.getLong(0));
 				cur.moveToNext();
 			}
 			cur.close();

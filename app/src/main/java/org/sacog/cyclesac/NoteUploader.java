@@ -170,7 +170,7 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 
 			int serverResponseCode = conn.getResponseCode();
 			String serverResponseMessage = conn.getResponseMessage();
-			Log.v("JSON", "HTTP Response is : " + serverResponseMessage + ": "
+			Log.v("Jason", "HTTP Response is : " + serverResponseMessage + ": "
 					+ serverResponseCode);
 			if (serverResponseCode == 201 || serverResponseCode == 202) {
 				mDb.open();
