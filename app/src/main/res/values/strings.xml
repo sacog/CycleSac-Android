@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Cycle Atlanta</string>
+    <string name="app_name">CycleSac</string>
     <string name="title_section4">Setting</string>
     <string name="title_section3">Notes</string>
     <string name="title_section2">Trips</string>
@@ -90,6 +90,6 @@
         <item>Other</item>
     </string-array>
 
-    <string name="title_activity_main">Cycle Atlanta</string>
+    <string name="title_activity_main">CycleSac</string>
 
 </resources>

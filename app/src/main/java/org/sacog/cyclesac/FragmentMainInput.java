@@ -103,27 +103,6 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 				container, false);
 		setUpMapIfNeeded();
 
-		// LatLng myLocation = new
-		// LatLng(mLocationClient.getLastLocation().getLatitude(),
-		// mLocationClient.getLastLocation().getLongitude());
-		// map.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 13));
-
-		// map.moveCamera(CameraUpdateFactory.newLatLngZoom(atlanta, 13));
-
-		// map = ((SupportMapFragment)
-		// getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-
-		// LatLng atlanta = new LatLng(33.749038, -84.388068);
-
-		// map.setMyLocationEnabled(true);
-		// map.moveCamera(CameraUpdateFactory.newLatLngZoom(atlanta, 13));
-
-		// Log.d("Jason", "Start");
-
-		// Hide action bar title on Main Screen
-		// getActivity().getActionBar().setDisplayShowTitleEnabled(true);
-		// getActivity().getActionBar().setDisplayShowHomeEnabled(true);
-
 		Intent rService = new Intent(getActivity(), RecordingService.class);
 		ServiceConnection sc = new ServiceConnection() {
 			public void onServiceDisconnected(ComponentName name) {
@@ -323,30 +302,13 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 					rs.startRecording(trip);
 					isRecording = true;
 					startButton.setText("Save");
-					// startButton.setBackgroundColor(0xFF0000);
-					// MainInputActivity.this.pauseButton.setEnabled(true);
-					// MainInputActivity.this
-					// .setTitle("Cycle Atlanta - Recording...");
 					break;
 				case RecordingService.STATE_RECORDING:
 					long id = rs.getCurrentTrip();
 					trip = TripData.fetchTrip(getActivity(), id);
 					isRecording = true;
 					startButton.setText("Save");
-					// startButton.setBackgroundColor(0xFF0000);
-					// MainInputActivity.this.pauseButton.setEnabled(true);
-					// MainInputActivity.this
-					// .setTitle("Cycle Atlanta - Recording...");
 					break;
-				// case RecordingService.STATE_PAUSED:
-				// long tid = rs.getCurrentTrip();
-				// isRecording = false;
-				// trip = TripData.fetchTrip(MainInputActivity.this, tid);
-				// // MainInputActivity.this.pauseButton.setEnabled(true);
-				// // MainInputActivity.this.pauseButton.setText("Resume");
-				// // MainInputActivity.this
-				// // .setTitle("Cycle Atlanta - Paused...");
-				// break;
 				case RecordingService.STATE_FULL:
 					// Should never get here, right?
 					break;
@@ -366,7 +328,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 		final AlertDialog.Builder builder = new AlertDialog.Builder(
 				getActivity());
 		builder.setMessage(
-				"Your phone's GPS is disabled. Cycle Atlanta needs GPS to determine your location.\n\nGo to System Settings now to enable GPS?")
+				"Your phone's GPS is disabled. CycleSac needs GPS to determine your location.\n\nGo to System Settings now to enable GPS?")
 				.setCancelable(false)
 				.setPositiveButton("GPS Settings...",
 						new DialogInterface.OnClickListener() {

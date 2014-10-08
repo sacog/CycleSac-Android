@@ -64,7 +64,7 @@ public class NoteTypeActivity extends Activity {
 						"Have a flat, a broken chain, or spongy brakes? Or do you need a bike to jump into this world of cycling in the first place? Here's a shop ready to help.");
 		noteTypeDescriptions
 				.put(8,
-						"Help us make cycling mainstream! here's a place to refresh yourself before you re-enter the fashionable world of Atlanta.");
+						"Help us make cycling mainstream! here's a place to refresh yourself before you re-enter the fashionable world of Sacremento.");
 		noteTypeDescriptions
 				.put(9,
 						"Here's an access point under the tracks, through the park, onto a trail, or over a ravine.");

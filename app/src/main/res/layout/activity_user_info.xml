@@ -31,7 +31,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:text="Get started with Cycle Atlanta" />
+                android:text="Get started with CycleSac" />
 
             <TextView
                 android:id="@+id/textView1"

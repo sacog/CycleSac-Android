@@ -1,33 +1,3 @@
-/**	 Cycle Altanta, Copyright 2012 Georgia Institute of Technology
- *                                    Atlanta, GA. USA
- *
- *   @author Christopher Le Dantec <ledantec@gatech.edu>
- *   @author Anhong Guo <guoanhong15@gmail.com>
- *
- *   Updated/Modified for Atlanta's app deployment. Based on the
- *   CycleTracks codebase for SFCTA.
- *
- *   CycleTracks, Copyright 2009,2010 San Francisco County Transportation Authority
- *                                    San Francisco, CA, USA
- *
- * 	 @author Billy Charlton <billy.charlton@sfcta.org>
- *
- *   This file is part of CycleTracks.
- *
- *   CycleTracks is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   CycleTracks is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with CycleTracks.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package org.sacog.cyclesac;
 
 import java.io.DataOutputStream;
@@ -69,9 +39,7 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 	public static final String NOTE_DETAILS = "d";
 	public static final String NOTE_IMGURL = "i";
 
-	String twoHyphens = "--";
-	String boundary = "cycle*******notedata*******atlanta";
-	String lineEnd = "\r\n";
+	String boundary = "cyclesac*******notedata";
 
 	public NoteUploader(Context ctx) {
 		super();
@@ -153,106 +121,9 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 		return deviceId;
 	}
 
-	// private BasicHttpEntity getPostData(long noteId) throws JSONException,
-	// IOException {
-	// JSONObject note = getNoteJSON(noteId);
-	// String deviceId = getDeviceId();
-	//
-	// List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-	// nameValuePairs.add(new BasicNameValuePair("note", note.toString()));
-	// nameValuePairs.add(new BasicNameValuePair("device", deviceId));
-	// nameValuePairs.add(new BasicNameValuePair("version", ""
-	// + kSaveNoteProtocolVersion));
-	//
-	// ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	// DataOutputStream dos = new DataOutputStream(baos);
-	//
-	// dos.writeBytes("--cycle*******notedata*******atlanta\r\n"
-	// + "Content-Disposition: form-data; name=\"note\"\r\n\r\n"
-	// + note.toString() + "\r\n");
-	// dos.writeBytes("--cycle*******notedata*******atlanta\r\n"
-	// + "Content-Disposition: form-data; name=\"version\"\r\n\r\n"
-	// + String.valueOf(kSaveNoteProtocolVersion) + "\r\n");
-	// dos.writeBytes("--cycle*******notedata*******atlanta\r\n"
-	// + "Content-Disposition: form-data; name=\"device\"\r\n\r\n"
-	// + deviceId + "\r\n");
-	//
-	// if (imageDataNull = false) {
-	// dos.writeBytes("--cycle*******notedata*******atlanta\r\n"
-	// + "Content-Disposition: form-data; name=\"file\"; filename=\""
-	// + deviceId + ".jpg\"\r\n"
-	// + "Content-Type: image/jpeg\r\n\r\n");
-	// dos.write(imageData);
-	// dos.writeBytes("\r\n");
-	// }
-	//
-	// dos.writeBytes("--cycle*******notedata*******atlanta--\r\n");
-	//
-	// dos.flush();
-	// dos.close();
-	//
-	// Log.v("Jason", "" + baos);
-	//
-	// ByteArrayInputStream content = new ByteArrayInputStream(
-	// baos.toByteArray());
-	// BasicHttpEntity entity = new BasicHttpEntity();
-	// entity.setContent(content);
-	//
-	// entity.setContentLength(content.toString().length());
-	//
-	// return entity;
-	// }
-	//
-	// private static String convertStreamToString(InputStream is) {
-	// /*
-	// * To convert the InputStream to String we use the
-	// * BufferedReader.readLine() method. We iterate until the BufferedReader
-	// * return null which means there's no more data to read. Each line will
-	// * appended to a StringBuilder and returned as String.
-	// */
-	// BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-	// StringBuilder sb = new StringBuilder();
-	//
-	// String line = null;
-	// try {
-	// while ((line = reader.readLine()) != null) {
-	// sb.append(line + "\n");
-	// }
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// } finally {
-	// try {
-	// is.close();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// return sb.toString();
-	// }
-
 	boolean uploadOneNote(long currentNoteId) {
 		boolean result = false;
 		final String postUrl = "http://cycleatlanta.org/post_dev/";
-
-		// byte[] postBodyDataZipped;
-		//
-		// BasicHttpEntity postBodyEntity;
-		//
-		// List<NameValuePair> nameValuePairs;
-		// try {
-		// postBodyEntity = getPostData(currentNoteId);
-		// } catch (JSONException e) {
-		// e.printStackTrace();
-		// return result;
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// return result;
-		// }
-		//
-		// HttpClient client = new DefaultHttpClient();
-		// // TODO: Server URL
-		// final String postUrl = "http://cycleatlanta.org/post_dev/";
-		// HttpPost postRequest = new HttpPost(postUrl);
 
 		try {
 
@@ -273,18 +144,18 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 			JSONObject note = getNoteJSON(currentNoteId);
 			String deviceId = getDeviceId();
 
-			dos.writeBytes("--cycle*******notedata*******atlanta\r\n"
+			dos.writeBytes("--" + boundary + "\r\n"
 					+ "Content-Disposition: form-data; name=\"note\"\r\n\r\n"
 					+ note.toString() + "\r\n");
-			dos.writeBytes("--cycle*******notedata*******atlanta\r\n"
+			dos.writeBytes("--" + boundary + "\r\n"
 					+ "Content-Disposition: form-data; name=\"version\"\r\n\r\n"
 					+ String.valueOf(kSaveNoteProtocolVersion) + "\r\n");
-			dos.writeBytes("--cycle*******notedata*******atlanta\r\n"
+			dos.writeBytes("--" + boundary + "\r\n"
 					+ "Content-Disposition: form-data; name=\"device\"\r\n\r\n"
 					+ deviceId + "\r\n");
 
-			if (imageDataNull == false) {
-				dos.writeBytes("--cycle*******notedata*******atlanta\r\n"
+			if (!imageDataNull) {
+				dos.writeBytes("--" + boundary + "\r\n"
 						+ "Content-Disposition: form-data; name=\"file\"; filename=\""
 						+ deviceId + ".jpg\"\r\n"
 						+ "Content-Type: image/jpeg\r\n\r\n");
@@ -292,15 +163,14 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 				dos.writeBytes("\r\n");
 			}
 
-			dos.writeBytes("--cycle*******notedata*******atlanta--\r\n");
+			dos.writeBytes("--" + boundary + "--\r\n");
 
 			dos.flush();
 			dos.close();
 
 			int serverResponseCode = conn.getResponseCode();
 			String serverResponseMessage = conn.getResponseMessage();
-			// JSONObject responseData = new JSONObject(serverResponseMessage);
-			Log.v("Jason", "HTTP Response is : " + serverResponseMessage + ": "
+			Log.v("JSON", "HTTP Response is : " + serverResponseMessage + ": "
 					+ serverResponseCode);
 			if (serverResponseCode == 201 || serverResponseCode == 202) {
 				mDb.open();
@@ -338,7 +208,7 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 		if (cur != null && cur.getCount() > 0) {
 			// pd.setMessage("Sent. You have previously unsent notes; submitting those now.");
 			while (!cur.isAfterLast()) {
-				unsentNotes.add(Long.valueOf(cur.getLong(0)));
+				unsentNotes.add(cur.getLong(0));
 				cur.moveToNext();
 			}
 			cur.close();
@@ -354,7 +224,7 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 	@Override
 	protected void onPreExecute() {
 		Toast.makeText(mCtx.getApplicationContext(),
-				"Submitting. Thanks for using Cycle Atlanta!",
+				"Submitting. Thanks for using CycleSac!",
 				Toast.LENGTH_LONG).show();
 	}
 
@@ -400,7 +270,7 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 			} else {
 				Toast.makeText(
 						mCtx.getApplicationContext(),
-						"Cycle Atlanta couldn't upload the note, and will retry when your next note is completed.",
+						"CycleSac couldn't upload the note, and will retry when your next note is completed.",
 						Toast.LENGTH_LONG).show();
 			}
 		} catch (Exception e) {

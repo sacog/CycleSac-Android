@@ -120,17 +120,17 @@ public class TabsConfig extends FragmentActivity implements
 		case 1:
 			actionBar.setDisplayShowTitleEnabled(true);
 			actionBar.setDisplayShowHomeEnabled(true);
-			actionBar.setTitle("Cycle Atlanta");
+			actionBar.setTitle("CycleSac");
 			break;
 		case 2:
 			actionBar.setDisplayShowTitleEnabled(true);
 			actionBar.setDisplayShowHomeEnabled(true);
-			actionBar.setTitle("Cycle Atlanta");
+			actionBar.setTitle("CycleSac");
 			break;
 		case 3:
 			actionBar.setDisplayShowTitleEnabled(true);
 			actionBar.setDisplayShowHomeEnabled(true);
-			actionBar.setTitle("Cycle Atlanta");
+			actionBar.setTitle("CycleSac");
 			break;
 		}
 	}

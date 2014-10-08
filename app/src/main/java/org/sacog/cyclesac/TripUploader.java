@@ -1,33 +1,3 @@
-/**	 Cycle Altanta, Copyright 2012 Georgia Institute of Technology
- *                                    Atlanta, GA. USA
- *
- *   @author Christopher Le Dantec <ledantec@gatech.edu>
- *   @author Anhong Guo <guoanhong15@gmail.com>
- *
- *   Updated/Modified for Atlanta's app deployment. Based on the
- *   CycleTracks codebase for SFCTA.
- *
- *   CycleTracks, Copyright 2009,2010 San Francisco County Transportation Authority
- *                                    San Francisco, CA, USA
- *
- * 	 @author Billy Charlton <billy.charlton@sfcta.org>
- *
- *   This file is part of CycleTracks.
- *
- *   CycleTracks is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   CycleTracks is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with CycleTracks.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package org.sacog.cyclesac;
 
 import java.io.BufferedReader;
@@ -71,15 +41,6 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 	DbAdapter mDb;
 
 	public static final int kSaveProtocolVersion = 3;
-
-	// Saving protocol version 2
-	// public static final String TRIP_COORDS_TIME = "rec";
-	// public static final String TRIP_COORDS_LAT = "lat";
-	// public static final String TRIP_COORDS_LON = "lon";
-	// public static final String TRIP_COORDS_ALT = "alt";
-	// public static final String TRIP_COORDS_SPEED = "spd";
-	// public static final String TRIP_COORDS_HACCURACY = "hac";
-	// public static final String TRIP_COORDS_VACCURACY = "vac";
 
 	// Saving protocol version 3
 	public static final String TRIP_COORDS_TIME = "r";
@@ -456,7 +417,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 	@Override
 	protected void onPreExecute() {
 		Toast.makeText(mCtx.getApplicationContext(),
-				"Submitting. Thanks for using Cycle Atlanta!",
+				"Submitting. Thanks for using CycleSac!",
 				Toast.LENGTH_LONG).show();
 	}
 
@@ -501,7 +462,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 			} else {
 				Toast.makeText(
 						mCtx.getApplicationContext(),
-						"Cycle Atlanta couldn't upload the trip, and will retry when your next trip is completed.",
+						"CycleSac couldn't upload the trip, and will retry when your next trip is completed.",
 						Toast.LENGTH_LONG).show();
 			}
 		} catch (Exception e) {

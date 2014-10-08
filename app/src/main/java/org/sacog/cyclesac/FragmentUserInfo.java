@@ -47,52 +47,11 @@ public class FragmentUserInfo extends Fragment {
 		super.onCreate(savedInstanceState);
 		View rootView = inflater.inflate(R.layout.activity_user_info,
 				container, false);
-		// getActivity().getActionBar().setDisplayShowTitleEnabled(true);
-		// getActivity().getActionBar().setDisplayShowHomeEnabled(true);
-
-		// Don't pop up the soft keyboard until user clicks!
-		// this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-		// not using seekbar any more
-		// SeekBar sb = (SeekBar) findViewById(R.id.SeekCycleFreq);
-		// sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-		//
-		// @Override
-		// public void onStopTrackingTouch(SeekBar arg0) {
-		// // TODO Auto-generated method stub
-		// }
-		//
-		// @Override
-		// public void onStartTrackingTouch(SeekBar arg0) {
-		// // TODO Auto-generated method stub
-		// }
-		//
-		// @Override
-		// public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
-		// TextView tv = (TextView) findViewById(R.id.TextFreq);
-		// tv.setText(freqDesc[arg1 / 100]);
-		// }
-		// });
-
-		// put on Cycle Atlanta bar
-		// Button btn = (Button) findViewById(R.id.saveButton);
-		// btn.setOnClickListener(new OnClickListener() {
-		// @Override
-		// public void onClick(View arg0) {
-		// Intent intent = new Intent(UserInfoActivity.this,
-		// MainInput.class);
-		// startActivity(intent);
-		// finish();
-		// }
-		//
-		// });
 
 		final Button GetStarted = (Button) rootView
 				.findViewById(R.id.buttonGetStarted);
 		GetStarted.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// Toast.makeText(getActivity(), "Get Started Clicked",
-				// Toast.LENGTH_LONG).show();
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
 						.parse("http://cycleatlanta.org/instructions-v2/"));
 				startActivity(browserIntent);
@@ -104,7 +63,6 @@ public class FragmentUserInfo extends Fragment {
 		Map<String, ?> prefs = settings.getAll();
 		for (Entry<String, ?> p : prefs.entrySet()) {
 			int key = Integer.parseInt(p.getKey());
-			// CharSequence value = (CharSequence) p.getValue();
 
 			switch (key) {
 			case PREF_AGE:
@@ -146,21 +104,11 @@ public class FragmentUserInfo extends Fragment {
 			case PREF_CYCLEFREQ:
 				((Spinner) rootView.findViewById(R.id.cyclefreqSpinner))
 						.setSelection(((Integer) p.getValue()).intValue());
-				// ((SeekBar)
-				// findViewById(R.id.SeekCycleFreq)).setProgress(((Integer)
-				// p.getValue()).intValue());
 				break;
 			case PREF_GENDER:
 				((Spinner) rootView.findViewById(R.id.genderSpinner))
 						.setSelection(((Integer) p.getValue()).intValue());
 				break;
-			// int x = ((Integer) p.getValue()).intValue();
-			// if (x == 2) {
-			// ((RadioButton) findViewById(R.id.ButtonMale)).setChecked(true);
-			// } else if (x == 1) {
-			// ((RadioButton) findViewById(R.id.ButtonFemale)).setChecked(true);
-			// }
-			// break;
 			}
 		}
 
