@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.provider.Settings.System;
 import android.util.Log;
 import android.widget.ListView;
@@ -99,8 +100,8 @@ public class NoteUploader extends AsyncTask<Long, Integer, Boolean> {
 
 	public String getDeviceId() {
 		String androidId = System.getString(this.mCtx.getContentResolver(),
-				System.ANDROID_ID);
-		String androidBase = "androidDeviceId-";
+                Settings.Secure.ANDROID_ID);
+        String androidBase = "androidDeviceId-";
 
 		if (androidId == null) { // This happens when running in the Emulator
 			final String emulatorId = "android-RunningAsTestingDeleteMe";

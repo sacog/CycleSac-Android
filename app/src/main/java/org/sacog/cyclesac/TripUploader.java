@@ -31,6 +31,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.provider.Settings;
 import android.provider.Settings.System;
 import android.util.Log;
 import android.widget.ListView;
@@ -190,7 +191,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 
 	public String getDeviceId() {
 		String androidId = System.getString(this.mCtx.getContentResolver(),
-				System.ANDROID_ID);
+				Settings.Secure.ANDROID_ID);
 		String androidBase = "androidDeviceId-";
 
 		if (androidId == null) { // This happens when running in the Emulator
