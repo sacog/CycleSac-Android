@@ -368,7 +368,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 						// save
 						// If we have points, go to the save-trip activity
 						// trip.numpoints > 0
-						if (trip.numpoints > 0) {
+						if (trip != null && trip.numpoints > 0) {
 							// Handle pause time gracefully
 							if (trip.pauseStartedAt > 0) {
 								trip.totalPauseTime += (System

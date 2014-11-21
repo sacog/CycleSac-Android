@@ -91,5 +91,6 @@
     </string-array>
 
     <string name="title_activity_main">CycleSac</string>
+    <string name="root_url">http://cycleatlanta.org</string>
 
 </resources>

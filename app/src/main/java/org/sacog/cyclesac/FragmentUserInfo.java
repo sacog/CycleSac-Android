@@ -50,10 +50,11 @@ public class FragmentUserInfo extends Fragment {
 
 		final Button GetStarted = (Button) rootView
 				.findViewById(R.id.buttonGetStarted);
+        final String rootUrl = this.getString(R.string.root_url);
 		GetStarted.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
-						.parse("http://cycleatlanta.org/instructions-v2/"));
+						.parse(rootUrl + "/instructions-v2/"));
 				startActivity(browserIntent);
 			}
 		});

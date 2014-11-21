@@ -333,7 +333,8 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 
 		HttpClient client = new DefaultHttpClient();
 		// TODO: Server URL
-		final String postUrl = "http://cycleatlanta.org/post_dev/";
+        String rootUrl = mCtx.getString(R.string.root_url);
+		final String postUrl = rootUrl + "/post_dev/";
 		HttpPost postRequest = new HttpPost(postUrl);
 
 		try {
