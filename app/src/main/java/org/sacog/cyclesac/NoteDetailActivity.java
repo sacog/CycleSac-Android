@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.provider.Settings.System;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -138,7 +139,7 @@ public class NoteDetailActivity extends Activity {
 
 	public String getDeviceId() {
 		String androidId = System.getString(this.getContentResolver(),
-				System.ANDROID_ID);
+                Settings.Secure.ANDROID_ID);
 		String androidBase = "androidDeviceId-";
 
 		if (androidId == null) { // This happens when running in the Emulator
