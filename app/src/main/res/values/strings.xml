@@ -36,23 +36,23 @@
     </string-array>
     <string-array name="ethnicityArray">
         <item></item>
-        <item>White</item>
-        <item>African American</item>
+        <item>African-American</item>
         <item>Asian</item>
-        <item>Native American</item>
-        <item>Pacific Islander</item>
-        <item>Multi-racial</item>
-        <item>Hispanic / Mexican / Latino</item>
+        <item>Caucasian/White</item>
+        <item>Hispanic/Latino</item>
+        <item>Native American/Alaskan</item>
+        <item>Pacific Islander/Hawaiian native</item>
         <item>Other</item>
     </string-array>
     <string-array name="incomeArray">
         <item></item>
-        <item>Less than $20,000</item>
-        <item>$20,000 to $39,999</item>
-        <item>$40,000 to $59,999</item>
-        <item>$60,000 to $74,999</item>
-        <item>$75,000 to $99,999</item>
-        <item>$100,000 or greater</item>
+        <item>Less than $15,000</item>
+        <item>$25,000 to $34,999</item>
+        <item>$35,000 to $49,999</item>
+        <item>$50,000 to $74,999</item>
+        <item>$100,000 to $149,999</item>
+        <item>$150,000 to $199,999</item>
+        <item>More than $200,000</item>
     </string-array>
     <string-array name="cyclefreqArray">
         <item></item>
@@ -85,7 +85,6 @@
         <item>Work-Related</item>
         <item>Exercise</item>
         <item>Social</item>
-        <item>Shopping</item>
         <item>Errand</item>
         <item>Other</item>
     </string-array>

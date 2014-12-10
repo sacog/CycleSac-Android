@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -25,14 +26,13 @@ public class FragmentUserInfo extends Fragment {
 	public final static int PREF_AGE = 1;
 	public final static int PREF_ZIPHOME = 2;
 	public final static int PREF_ZIPWORK = 3;
-	public final static int PREF_ZIPSCHOOL = 4;
-	public final static int PREF_EMAIL = 5;
+	public final static int PREF_EMAIL = 4;
+    public final static int PREF_FUTURESURVEY = 5;
 	public final static int PREF_GENDER = 6;
 	public final static int PREF_CYCLEFREQ = 7;
 	public final static int PREF_ETHNICITY = 8;
 	public final static int PREF_INCOME = 9;
 	public final static int PREF_RIDERTYPE = 10;
-	public final static int PREF_RIDERHISTORY = 11;
 
 	private static final String TAG = "UserPrefActivity";
 
@@ -82,20 +82,12 @@ public class FragmentUserInfo extends Fragment {
 				((Spinner) rootView.findViewById(R.id.ridertypeSpinner))
 						.setSelection(((Integer) p.getValue()).intValue());
 				break;
-			case PREF_RIDERHISTORY:
-				((Spinner) rootView.findViewById(R.id.riderhistorySpinner))
-						.setSelection(((Integer) p.getValue()).intValue());
-				break;
 			case PREF_ZIPHOME:
 				((EditText) rootView.findViewById(R.id.TextZipHome))
 						.setText((CharSequence) p.getValue());
 				break;
 			case PREF_ZIPWORK:
 				((EditText) rootView.findViewById(R.id.TextZipWork))
-						.setText((CharSequence) p.getValue());
-				break;
-			case PREF_ZIPSCHOOL:
-				((EditText) rootView.findViewById(R.id.TextZipSchool))
 						.setText((CharSequence) p.getValue());
 				break;
 			case PREF_EMAIL:
@@ -110,6 +102,10 @@ public class FragmentUserInfo extends Fragment {
 				((Spinner) rootView.findViewById(R.id.genderSpinner))
 						.setSelection(((Integer) p.getValue()).intValue());
 				break;
+            case PREF_FUTURESURVEY:
+                ((CheckBox)rootView.findViewById(R.id.futureSurveyCheckBox))
+                    .setChecked(((Boolean)p.getValue()).booleanValue());
+                break;
 			}
 		}
 
@@ -117,6 +113,13 @@ public class FragmentUserInfo extends Fragment {
 				.findViewById(R.id.TextEmail);
 
 		edittextEmail.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        final Button saveSettingsButton = (Button)rootView.findViewById(R.id.saveSettingsButton);
+        saveSettingsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                savePreferences();
+            }
+        });
 
 		setHasOptionsMenu(true);
 		return rootView;
@@ -148,18 +151,15 @@ public class FragmentUserInfo extends Fragment {
 						.getSelectedItemPosition());
 		editor.putInt("" + PREF_RIDERTYPE, ((Spinner) getActivity()
 				.findViewById(R.id.ridertypeSpinner)).getSelectedItemPosition());
-		editor.putInt("" + PREF_RIDERHISTORY, ((Spinner) getActivity()
-				.findViewById(R.id.riderhistorySpinner))
-				.getSelectedItemPosition());
 
 		editor.putString("" + PREF_ZIPHOME, ((EditText) getActivity()
 				.findViewById(R.id.TextZipHome)).getText().toString());
 		editor.putString("" + PREF_ZIPWORK, ((EditText) getActivity()
 				.findViewById(R.id.TextZipWork)).getText().toString());
-		editor.putString("" + PREF_ZIPSCHOOL, ((EditText) getActivity()
-				.findViewById(R.id.TextZipSchool)).getText().toString());
 		editor.putString("" + PREF_EMAIL, ((EditText) getActivity()
 				.findViewById(R.id.TextEmail)).getText().toString());
+        editor.putBoolean("" + PREF_FUTURESURVEY, ((CheckBox)getActivity()
+                .findViewById(R.id.futureSurveyCheckBox)).isChecked());
 
 		editor.putInt("" + PREF_CYCLEFREQ, ((Spinner) getActivity()
 				.findViewById(R.id.cyclefreqSpinner)).getSelectedItemPosition());

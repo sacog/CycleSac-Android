@@ -54,17 +54,16 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 
 	public static final String USER_AGE = "age";
 	public static final String USER_EMAIL = "email";
+    public static final String USER_FUTURE_SURVEY = "future_survey";
 	public static final String USER_GENDER = "gender";
 	public static final String USER_ZIP_HOME = "homeZIP";
 	public static final String USER_ZIP_WORK = "workZIP";
-	public static final String USER_ZIP_SCHOOL = "schoolZIP";
-	public static final String USER_CYCLING_FREQUENCY = "cyclingFreq";
+	public static final String USER_CYCLING_FREQUENCY = "cycling_freq";
 	public static final String APP_VERSION = "app_version";
 
 	public static final String USER_ETHNICITY = "ethnicity";
 	public static final String USER_INCOME = "income";
-	public static final String USER_RIDERTYPE = "rider_type";
-	public static final String USER_RIDERHISTORY = "rider_history";
+	public static final String USER_RIDERCONFIDENCE = "rider_confidence";
 
 	public TripUploader(Context ctx) {
 		super();
@@ -127,38 +126,18 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 
 	private JSONObject getUserJSON() throws JSONException {
 		JSONObject user = new JSONObject();
-		Map<String, Integer> fieldMap = new HashMap<String, Integer>();
+        SharedPreferences settings = this.mCtx.getSharedPreferences("PREFS", 0);
 
-		fieldMap.put(USER_EMAIL, Integer.valueOf(FragmentUserInfo.PREF_EMAIL));
-
-		fieldMap.put(USER_ZIP_HOME,
-				Integer.valueOf(FragmentUserInfo.PREF_ZIPHOME));
-		fieldMap.put(USER_ZIP_WORK,
-				Integer.valueOf(FragmentUserInfo.PREF_ZIPWORK));
-		fieldMap.put(USER_ZIP_SCHOOL,
-				Integer.valueOf(FragmentUserInfo.PREF_ZIPSCHOOL));
-
-		SharedPreferences settings = this.mCtx.getSharedPreferences("PREFS", 0);
-		for (Entry<String, Integer> entry : fieldMap.entrySet()) {
-			user.put(entry.getKey(),
-					settings.getString(entry.getValue().toString(), null));
-		}
 		user.put(USER_AGE, settings.getInt("" + FragmentUserInfo.PREF_AGE, 0));
-		user.put(USER_GENDER,
-				settings.getInt("" + FragmentUserInfo.PREF_GENDER, 0));
-		user.put(USER_CYCLING_FREQUENCY,
-				settings.getInt("" + FragmentUserInfo.PREF_GENDER, 0) / 100);
-		// Integer.parseInt(settings.getString(""+UserInfoActivity.PREF_CYCLEFREQ,
-		// "0"))
-		user.put(USER_ETHNICITY,
-				settings.getInt("" + FragmentUserInfo.PREF_ETHNICITY, 0));
-		user.put(USER_INCOME,
-				settings.getInt("" + FragmentUserInfo.PREF_INCOME, 0));
-		user.put(USER_RIDERTYPE,
-				settings.getInt("" + FragmentUserInfo.PREF_RIDERTYPE, 0));
-		user.put(USER_RIDERHISTORY,
-				settings.getInt("" + FragmentUserInfo.PREF_RIDERHISTORY, 0));
-
+        user.put(USER_EMAIL, settings.getString("" + FragmentUserInfo.PREF_EMAIL, null));
+        user.put(USER_FUTURE_SURVEY, settings.getBoolean("" + FragmentUserInfo.PREF_FUTURESURVEY, false));
+		user.put(USER_GENDER, settings.getInt("" + FragmentUserInfo.PREF_GENDER, 0));
+        user.put(USER_ETHNICITY, settings.getInt("" + FragmentUserInfo.PREF_ETHNICITY, 0));
+		user.put(USER_INCOME, settings.getInt("" + FragmentUserInfo.PREF_INCOME, 0));
+        user.put(USER_ZIP_HOME, settings.getInt("" + FragmentUserInfo.PREF_ZIPHOME, 0));
+        user.put(USER_ZIP_WORK, settings.getInt("" + FragmentUserInfo.PREF_ZIPWORK, 0));
+        user.put(USER_CYCLING_FREQUENCY, settings.getInt("" + FragmentUserInfo.PREF_CYCLEFREQ, 0));
+		user.put(USER_RIDERCONFIDENCE, settings.getInt("" + FragmentUserInfo.PREF_RIDERTYPE, 0));
 		user.put(APP_VERSION, getAppVersion());
 
 		return user;
