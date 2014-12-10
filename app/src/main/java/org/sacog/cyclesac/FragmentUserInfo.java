@@ -32,7 +32,7 @@ public class FragmentUserInfo extends Fragment {
 	public final static int PREF_CYCLEFREQ = 7;
 	public final static int PREF_ETHNICITY = 8;
 	public final static int PREF_INCOME = 9;
-	public final static int PREF_RIDERTYPE = 10;
+	public final static int PREF_RIDERCONFIDENCE = 10;
 
 	private static final String TAG = "UserPrefActivity";
 
@@ -78,7 +78,7 @@ public class FragmentUserInfo extends Fragment {
 				((Spinner) rootView.findViewById(R.id.incomeSpinner))
 						.setSelection(((Integer) p.getValue()).intValue());
 				break;
-			case PREF_RIDERTYPE:
+			case PREF_RIDERCONFIDENCE:
 				((Spinner) rootView.findViewById(R.id.ridertypeSpinner))
 						.setSelection(((Integer) p.getValue()).intValue());
 				break;
@@ -149,7 +149,7 @@ public class FragmentUserInfo extends Fragment {
 		editor.putInt("" + PREF_INCOME,
 				((Spinner) getActivity().findViewById(R.id.incomeSpinner))
 						.getSelectedItemPosition());
-		editor.putInt("" + PREF_RIDERTYPE, ((Spinner) getActivity()
+		editor.putInt("" + PREF_RIDERCONFIDENCE, ((Spinner) getActivity()
 				.findViewById(R.id.ridertypeSpinner)).getSelectedItemPosition());
 
 		editor.putString("" + PREF_ZIPHOME, ((EditText) getActivity()

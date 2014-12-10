@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Vector;
 import java.util.zip.GZIPOutputStream;
 
@@ -134,10 +133,10 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 		user.put(USER_GENDER, settings.getInt("" + FragmentUserInfo.PREF_GENDER, 0));
         user.put(USER_ETHNICITY, settings.getInt("" + FragmentUserInfo.PREF_ETHNICITY, 0));
 		user.put(USER_INCOME, settings.getInt("" + FragmentUserInfo.PREF_INCOME, 0));
-        user.put(USER_ZIP_HOME, settings.getInt("" + FragmentUserInfo.PREF_ZIPHOME, 0));
-        user.put(USER_ZIP_WORK, settings.getInt("" + FragmentUserInfo.PREF_ZIPWORK, 0));
+        user.put(USER_ZIP_HOME, settings.getString("" + FragmentUserInfo.PREF_ZIPHOME, null));
+        user.put(USER_ZIP_WORK, settings.getString("" + FragmentUserInfo.PREF_ZIPWORK, null));
         user.put(USER_CYCLING_FREQUENCY, settings.getInt("" + FragmentUserInfo.PREF_CYCLEFREQ, 0));
-		user.put(USER_RIDERCONFIDENCE, settings.getInt("" + FragmentUserInfo.PREF_RIDERTYPE, 0));
+		user.put(USER_RIDERCONFIDENCE, settings.getInt("" + FragmentUserInfo.PREF_RIDERCONFIDENCE, 0));
 		user.put(APP_VERSION, getAppVersion());
 
 		return user;

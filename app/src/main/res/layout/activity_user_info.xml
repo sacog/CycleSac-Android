@@ -253,13 +253,13 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
-                android:id="@+id/textViewRiderType"
+                android:id="@+id/textViewRiderConfidence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView1"
                 android:layout_below="@+id/textView9"
                 android:layout_marginTop="15dp"
-                android:text="Rider Type"
+                android:text="Rider Confidence"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
@@ -268,7 +268,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/TextEmail"
                 android:layout_alignRight="@+id/TextEmail"
-                android:layout_alignTop="@+id/textViewRiderType"
+                android:layout_alignTop="@+id/textViewRiderConfidence"
                 android:entries="@array/ridertypeArray" />
 
             <Button
