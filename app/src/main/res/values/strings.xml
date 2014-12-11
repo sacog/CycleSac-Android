@@ -79,17 +79,7 @@
     <string name="email_hint">name@domain</string>
     <string name="zip_hint">12345</string>
 
-    <string-array name="trippurposeArray">
-        <item>Commute</item>
-        <item>School</item>
-        <item>Work-Related</item>
-        <item>Exercise</item>
-        <item>Social</item>
-        <item>Errand</item>
-        <item>Other</item>
-    </string-array>
-
     <string name="title_activity_main">CycleSac</string>
-    <string name="root_url">http://cycleatlanta.org</string>
+    <string name="root_url">http://10.146.0.187/cyclesac.org/cyclesac.org</string>
 
 </resources>

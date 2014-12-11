@@ -22,6 +22,7 @@ import android.widget.EditText;
 public class TripDetailActivity extends Activity {
 	long tripid;
 	String purpose = "";
+    String comfort = "";
 	EditText notes;
 
 	@Override
@@ -35,6 +36,7 @@ public class TripDetailActivity extends Activity {
 		purpose = "";
 		Intent myIntent = getIntent(); // gets the previously created intent
 		purpose = myIntent.getStringExtra("purpose");
+        comfort = myIntent.getStringExtra("comfort");
 		notes = (EditText) findViewById(R.id.editTextTripDetail);
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -60,7 +62,7 @@ public class TripDetailActivity extends Activity {
 				(0.0006212f * trip.distance), minutes, notesToUpload);
 
 		// Save the trip details to the phone database. W00t!
-		trip.updateTrip(purpose, fancyStartTime, fancyEndInfo, notesToUpload);
+		trip.updateTrip(purpose, comfort, fancyStartTime, fancyEndInfo, notesToUpload);
 		trip.updateTripStatus(TripData.STATUS_COMPLETE);
 		resetService();
 

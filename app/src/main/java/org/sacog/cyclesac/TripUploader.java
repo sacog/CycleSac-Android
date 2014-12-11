@@ -151,6 +151,8 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 				.getColumnIndex(DbAdapter.K_TRIP_NOTE));
 		String purpose = tripCursor.getString(tripCursor
 				.getColumnIndex(DbAdapter.K_TRIP_PURP));
+        String comfort = tripCursor.getString(tripCursor
+                .getColumnIndex(DbAdapter.K_TRIP_COMFORT));
 		Double startTime = tripCursor.getDouble(tripCursor
 				.getColumnIndex(DbAdapter.K_TRIP_START));
 		Double endTime = tripCursor.getDouble(tripCursor
@@ -161,6 +163,7 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		tripData.add(note);
 		tripData.add(purpose);
+        tripData.add(comfort);
 		tripData.add(df.format(startTime));
 		tripData.add(df.format(endTime));
 
@@ -237,21 +240,11 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 		Vector<String> tripData = getTripData(tripId);
 		String notes = tripData.get(0);
 		String purpose = tripData.get(1);
-		String startTime = tripData.get(2);
-		// String endTime = tripData.get(3);
+        String comfort = tripData.get(2);
+		String startTime = tripData.get(3);
+		// String endTime = tripData.get(4);
 
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		nameValuePairs.add(new BasicNameValuePair("coords", coords.toString()));
-		nameValuePairs.add(new BasicNameValuePair("user", user.toString()));
-		nameValuePairs.add(new BasicNameValuePair("device", deviceId));
-		nameValuePairs.add(new BasicNameValuePair("notes", notes));
-		nameValuePairs.add(new BasicNameValuePair("purpose", purpose));
-		nameValuePairs.add(new BasicNameValuePair("start", startTime));
-		// nameValuePairs.add(new BasicNameValuePair("end", endTime));
-		nameValuePairs.add(new BasicNameValuePair("version", ""
-				+ kSaveProtocolVersion));
-
-		String codedPostData = "purpose=" + purpose + "&user="
+		String codedPostData = "purpose=" + purpose + "&comfort=" + comfort + "&user="
 				+ user.toString() + "&notes=" + notes + "&coords="
 				+ coords.toString() + "&version="
 				+ String.valueOf(kSaveProtocolVersion) + "&start=" + startTime

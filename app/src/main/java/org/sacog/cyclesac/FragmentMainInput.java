@@ -383,7 +383,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 							// notes)
 							fi = new Intent(getActivity(),
 									TripPurposeActivity.class);
-							trip.updateTrip("", "", "", "");
+							trip.updateTrip("", "", "", "", "");
 
 							startActivity(fi);
 							getActivity().overridePendingTransition(
