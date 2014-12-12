@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordTrip$DummySectionFragment" >
+    tools:context=".RecordTrip$DummySectionFragment">
 
     <TextView
         android:id="@+id/textViewDesc"
@@ -22,9 +22,10 @@
     <ListView
         android:id="@+id/listViewTripPurpose"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="0dp"
         android:background="@drawable/bg_key"
-        android:layout_below="@+id/textViewDesc" />
+        android:layout_below="@+id/textViewDesc"
+        android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/textViewTripPurposeDesc"
@@ -55,7 +56,6 @@
     <ListView
         android:id="@+id/listViewTripComfort"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>

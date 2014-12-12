@@ -65,8 +65,15 @@ public class TripPurposeActivity extends Activity {
         final TripComfortAdapter tripComfortAdapter = new TripComfortAdapter(this);
         tripComfortListView.setAdapter(tripComfortAdapter);
         tripComfortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            private View oldSelection = null;
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (oldSelection != null) {
+                    oldSelection.setBackgroundColor(Color.parseColor("#ffffff"));
+                }
+                view.setBackgroundColor(Color.parseColor("#ff33b5e5"));
+                oldSelection = view;
                 self.comfort = tripComfortAdapter.getItem(position).getComfort();
             }
         });

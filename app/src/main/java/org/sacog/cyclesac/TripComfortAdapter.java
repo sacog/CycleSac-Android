@@ -42,16 +42,30 @@ public class TripComfortAdapter extends ArrayAdapter<TripComfortAdapter.TripComf
         this.add(new TripComfort("Terrible", R.drawable.social_high));
     }
 
+    private static class ViewHolder {
+        public TextView text;
+        public ImageView image;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.trip_comfort_list_item, parent, false);
-        TextView textView = (TextView) rowView.findViewById(R.id.tripComfortTextView);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.tripComfortImageView);
+        ViewHolder viewHolder;
+        if(convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.trip_comfort_list_item, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.text = (TextView) convertView.findViewById(R.id.tripComfortTextView);
+            viewHolder.image= (ImageView) convertView.findViewById(R.id.tripComfortImageView);
+            convertView.setTag(viewHolder);
+        }
+        else {
+            viewHolder = (ViewHolder)convertView.getTag();
+        }
+
         TripComfort tripComfort = this.getItem(position);
-        textView.setText(tripComfort.getComfort());
-        imageView.setImageResource(tripComfort.getImg());
-        return rowView;
+        viewHolder.text.setText(tripComfort.getComfort());
+        viewHolder.image.setImageResource(tripComfort.getImg());
+        return convertView;
     }
 }

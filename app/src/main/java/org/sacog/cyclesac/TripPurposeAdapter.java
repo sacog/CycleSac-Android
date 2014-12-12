@@ -77,16 +77,29 @@ public class TripPurposeAdapter extends ArrayAdapter<TripPurposeAdapter.TripPurp
         ));
 	}
 
+    private static class ViewHolder {
+        public TextView text;
+        public ImageView image;
+    }
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.trip_purpose_list_item, parent, false);
-		TextView textView = (TextView) rowView.findViewById(R.id.TextViewTripPurpose);
-		ImageView imageView = (ImageView) rowView.findViewById(R.id.ImageViewTripPurpose);
+        ViewHolder viewHolder;
+        if(convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.trip_purpose_list_item, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.text = (TextView) convertView.findViewById(R.id.TextViewTripPurpose);
+            viewHolder.image = (ImageView) convertView.findViewById(R.id.ImageViewTripPurpose);
+            convertView.setTag(viewHolder);
+        }
+        else {
+            viewHolder = (ViewHolder)convertView.getTag();
+        }
         TripPurpose purpose = this.getItem(position);
-		textView.setText(purpose.getPurpose());
-        imageView.setImageResource(purpose.getImg());
-		return rowView;
+		viewHolder.text.setText(purpose.getPurpose());
+        viewHolder.image.setImageResource(purpose.getImg());
+		return convertView;
 	}
 }
