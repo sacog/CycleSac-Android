@@ -35,11 +35,11 @@ public class TripComfortAdapter extends ArrayAdapter<TripComfortAdapter.TripComf
         super(context, R.layout.trip_comfort_list_item);
 
         this.context = context;
-        this.add(new TripComfort("Excellent", R.drawable.commute_high));
-        this.add(new TripComfort("Good", R.drawable.errands_high));
-        this.add(new TripComfort("Fair", R.drawable.exercise_high));
-        this.add(new TripComfort("Poor", R.drawable.school_high));
-        this.add(new TripComfort("Terrible", R.drawable.social_high));
+        this.add(new TripComfort("Excellent", R.drawable.excellent));
+        this.add(new TripComfort("Good", R.drawable.good));
+        this.add(new TripComfort("Fair", R.drawable.fair));
+        this.add(new TripComfort("Poor", R.drawable.poor));
+        this.add(new TripComfort("Terrible", R.drawable.terrible));
     }
 
     private static class ViewHolder {
