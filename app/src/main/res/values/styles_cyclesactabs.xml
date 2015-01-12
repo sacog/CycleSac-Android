@@ -31,7 +31,8 @@
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Cyclesactabs</item>
         <item name="android:actionBarTabTextStyle">@style/tabtextcolor</item>
         <item name="android:actionMenuTextColor">@color/white</item>
-        
+        <item name="android:textColorPrimary">@color/white</item>
+
     </style>
 
     <style name="tabtextcolor" parent="@android:style/Widget.Holo.Light.ActionBar.TabText">
