@@ -7,9 +7,12 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
-        android:layout_marginTop="12sp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/ImageNoteType"
+        android:layout_toEndOf="@+id/ImageNoteType"
+        android:layout_marginLeft="1dp"
+        android:layout_marginStart="1dp">
 
         <TextView
             android:id="@+id/TextViewStart"
@@ -38,9 +41,9 @@
         android:id="@+id/ImageNoteType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentRight="false"
         android:contentDescription="NoteType"
-        android:paddingRight="10dp"
-        android:paddingTop="24dp" />
+        android:paddingTop="24dp"
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

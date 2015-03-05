@@ -3,8 +3,10 @@ package org.sacog.cyclesac;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +21,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FragmentUserInfo extends Fragment {
 
@@ -45,6 +51,7 @@ public class FragmentUserInfo extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		View rootView = inflater.inflate(R.layout.activity_user_info,
 				container, false);
 
@@ -122,7 +129,9 @@ public class FragmentUserInfo extends Fragment {
         });
 
 		setHasOptionsMenu(true);
-		return rootView;
+        setCustomFonts(rootView);
+
+        return rootView;
 	}
 
 	@Override
@@ -130,6 +139,74 @@ public class FragmentUserInfo extends Fragment {
 		super.onDestroyView();
 		// savePreferences();
 	}
+
+    //Can't use the Caligraphy Library for Fragments.
+    public void setCustomFonts(View rootView) {
+        TextView txt; Typeface font;
+        txt = (TextView) rootView.findViewById(R.id.textView1);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView2);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView3);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.receiveEmailText);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView4);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView5);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView6);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView7);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textViewHomeZip);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textViewWorkZip);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView8);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textViewCycleFreq);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView9);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textViewRiderConfidence);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.buttonGetStarted);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.saveSettingsButton);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+        txt.setTypeface(font);
+    }
 
 	public void savePreferences() {
 		// Toast.makeText(getActivity(), "savePreferences()",

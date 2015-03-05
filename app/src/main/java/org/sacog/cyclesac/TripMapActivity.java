@@ -3,6 +3,7 @@ package org.sacog.cyclesac;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,6 +26,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class TripMapActivity extends Activity {
 	// private MapView mapView;
 	GoogleMap map;
@@ -41,6 +45,12 @@ public class TripMapActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_trip_map);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/MuseoSans_500.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -193,6 +203,11 @@ public class TripMapActivity extends Activity {
 	// // Auto-generated method stub
 	// return false;
 	// }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 	// Make sure overlays get zapped when we go BACK
 	@Override

@@ -21,6 +21,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class TripPurposeActivity extends Activity {
 	String purpose = "";
     String comfort = "";
@@ -30,6 +33,13 @@ public class TripPurposeActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trip_purpose);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/MuseoSans_500.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
+
         final TripPurposeActivity self = this;
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -82,6 +92,11 @@ public class TripPurposeActivity extends Activity {
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 	void cancelRecording() {
 		Intent rService = new Intent(this, RecordingService.class);

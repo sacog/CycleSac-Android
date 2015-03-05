@@ -1,88 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="80dp"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
-        android:layout_marginTop="8sp"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/TextViewStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="@+id/TextView03"
-            android:textColor="#ff888888"
-            android:textSize="15sp" >
-        </TextView>
-    </LinearLayout>
+    android:layout_height="90dp"
+    android:orientation="vertical"
+    android:paddingTop="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="27sp"
+        android:layout_height="105sp"
         android:layout_marginLeft="14sp"
         android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/TextViewPurpose"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="@+id/TextView01"
-            android:textColor="#ff000000"
-            android:textSize="18sp"
-            android:textStyle="bold" >
-        </TextView>
-
-        <TextView
-            android:id="@+id/TextViewInfo"
-            android:layout_toRightOf="@+id/TextViewPurpose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextInfo"
-            android:layout_marginLeft="20dp"
-            android:textColor="#ff000000"
-            android:textSize="18sp" >
-        </TextView>
 
         <ImageView
             android:id="@+id/ImageTripPurpose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="TripPurpose"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentRight="false"
             android:paddingTop="4dp"
-            android:paddingRight="10dp" />
-    </RelativeLayout>
+            android:paddingRight="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="50dp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/TextViewPurpose"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@+id/TextView01"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingLeft="15dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/TextViewInfo"
+            android:layout_alignStart="@+id/TextViewInfo">
+        </TextView>
+
+        <TextView
+            android:id="@+id/TextViewInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextInfo"
+            android:textColor="#ff000000"
+            android:textSize="15sp"
+            android:paddingLeft="15dp"
+            android:layout_below="@+id/TextViewPurpose"
+            android:layout_marginLeft="49dp">
+        </TextView>
 
         <TextView
             android:id="@+id/TextViewCO2"
-            android:layout_width="139dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextCO2"
             android:textColor="#ff888888"
-            android:textSize="12sp" >
+            android:textSize="15sp"
+            android:paddingLeft="15dp"
+            android:layout_below="@+id/TextViewInfo"
+            android:layout_alignLeft="@+id/TextViewInfo"
+            android:layout_alignStart="@+id/TextViewInfo">
         </TextView>
 
         <TextView
-            android:layout_toRightOf="@+id/TextViewCO2"
-            android:id="@+id/TextViewCalory"
-            android:layout_width="fill_parent"
+            android:id="@+id/TextViewStart"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextCalory"
+            android:text="steven"
             android:textColor="#ff888888"
-            android:textSize="12sp" >
+            android:textSize="15sp"
+            android:paddingLeft="15dp"
+            android:layout_below="@+id/TextViewCO2"
+            android:layout_marginLeft="49dp">
         </TextView>
+
     </RelativeLayout>
 
 </LinearLayout>

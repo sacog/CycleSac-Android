@@ -337,7 +337,9 @@ public class TripUploader extends AsyncTask<Long, Integer, Boolean> {
 			String responseString = convertStreamToString(response.getEntity()
 					.getContent());
 			// Log.v("httpResponse", responseString);
-			JSONObject responseData = new JSONObject(responseString);
+            //Due to an older version of Pel, it's returning on error so the JSONString is prefixed by a warning message, I'm omitting that message.
+            String formattedResponseString = responseString.substring(responseString.indexOf('{'), responseString.indexOf('}')+1);
+			JSONObject responseData = new JSONObject(formattedResponseString);
 			if (responseData.getString("status").equals("success")) {
 				mDb.open();
 				mDb.updateTripStatus(currentTripId, TripData.STATUS_SENT);

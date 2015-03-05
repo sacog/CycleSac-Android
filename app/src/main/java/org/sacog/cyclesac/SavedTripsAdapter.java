@@ -6,6 +6,7 @@ import java.util.TimeZone;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,18 +36,22 @@ public class SavedTripsAdapter extends SimpleCursorAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.saved_trips_list_item, parent,
 				false);
-		TextView textViewStart = (TextView) rowView
+        Typeface font = Typeface.createFromAsset(this.context.getAssets(), "fonts/MuseoSans_500.otf");
+
+        TextView textViewStart = (TextView) rowView
 				.findViewById(R.id.TextViewStart);
+        textViewStart.setTypeface(font);
 		TextView textViewPurpose = (TextView) rowView
 				.findViewById(R.id.TextViewPurpose);
+        textViewPurpose.setTypeface(Typeface.createFromAsset(this.context.getAssets(), "fonts/MuseoSans_900.otf"));
 		TextView textViewInfo = (TextView) rowView
 				.findViewById(R.id.TextViewInfo);
+        textViewInfo.setTypeface(font);
 		ImageView imageTripPurpose = (ImageView) rowView
 				.findViewById(R.id.ImageTripPurpose);
 		TextView textViewCO2 = (TextView) rowView
 				.findViewById(R.id.TextViewCO2);
-		TextView textViewCalory = (TextView) rowView
-				.findViewById(R.id.TextViewCalory);
+        textViewCO2.setTypeface(font);
 
 		cursor.moveToPosition(position);
 
@@ -64,8 +69,8 @@ public class SavedTripsAdapter extends SimpleCursorAdapter {
 		Double endTime = cursor.getDouble(cursor.getColumnIndex("endtime"));
 		String duration = sdfDuration.format(endTime - startTime);
 		Log.v("Jason", "Duration: " + duration);
-
-		textViewInfo.setText(duration);
+        Float distanceMiles = cursor.getFloat(cursor.getColumnIndex("distance")) * 0.00062137f; //Convert from meters to miles
+		textViewInfo.setText(distanceMiles + " Miles (" + duration + ")");
 
 		Double CO2 = cursor.getFloat(cursor.getColumnIndex("distance")) * 0.0006212 * 0.93;
 		DecimalFormat df = new DecimalFormat("0.#");
@@ -74,12 +79,6 @@ public class SavedTripsAdapter extends SimpleCursorAdapter {
 
 		Double calory = cursor.getFloat(cursor.getColumnIndex("distance")) * 0.0006212 * 49 - 1.69;
 		String caloryString = df.format(calory);
-		if (calory <= 0) {
-			textViewCalory.setText("Calories Burned: " + 0 + " kcal");
-		} else {
-			textViewCalory
-					.setText("Calories Burned: " + caloryString + " kcal");
-		}
 
 		int status = cursor.getInt(cursor.getColumnIndex("status"));
 		Log.v("Jason", "Status: " + status);

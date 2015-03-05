@@ -13,7 +13,7 @@
         android:paddingRight="6sp"
         android:paddingTop="4sp" >
 
-        <TextView
+        <TextView fontPath="fonts/MuseoSans_900.otf"
             android:id="@+id/TextViewMapPurpose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:textStyle="bold" >
         </TextView>
 
-        <TextView
+        <TextView fontPath="fonts/MuseoSans_500.otf"
             android:id="@+id/TextViewMapFancyStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         </TextView>
     </RelativeLayout>
 
-    <TextView
+    <TextView fontPath="fonts/MuseoSans_500.otf"
         android:id="@+id/TextViewMapInfo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -19,6 +19,9 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class TripDetailActivity extends Activity {
 	long tripid;
 	String purpose = "";
@@ -29,6 +32,12 @@ public class TripDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trip_detail);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/MuseoSans_500.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -79,6 +88,11 @@ public class TripDetailActivity extends Activity {
 		TripDetailActivity.this.finish();
 
 	}
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 	void finishRecording() {
 		Intent rService = new Intent(this, RecordingService.class);

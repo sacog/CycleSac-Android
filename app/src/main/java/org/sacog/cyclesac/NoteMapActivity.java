@@ -1,6 +1,7 @@
 package org.sacog.cyclesac;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +23,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class NoteMapActivity extends Activity {
 	GoogleMap map;
 
@@ -37,6 +41,12 @@ public class NoteMapActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_note_map);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/MuseoSans_500.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -118,6 +128,11 @@ public class NoteMapActivity extends Activity {
 			Log.e("GOT!", e.toString());
 		}
 	}
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 	// Make sure overlays get zapped when we go BACK
 	@Override

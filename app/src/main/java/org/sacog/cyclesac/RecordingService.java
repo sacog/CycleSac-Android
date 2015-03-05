@@ -20,6 +20,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 public class RecordingService extends Service implements LocationListener {
 	FragmentMainInput recordActivity;
 	LocationManager lm = null;
@@ -62,6 +64,11 @@ public class RecordingService extends Service implements LocationListener {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/MuseoSans_500.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 		soundpool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
 		bikebell = soundpool.load(this.getBaseContext(), R.raw.bikebell, 1);
 	}

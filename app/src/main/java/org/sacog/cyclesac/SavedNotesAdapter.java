@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,10 @@ public class SavedNotesAdapter extends SimpleCursorAdapter {
 				false);
 		TextView textViewStart = (TextView) rowView
 				.findViewById(R.id.TextViewStart);
+        textViewStart.setTypeface(Typeface.createFromAsset(this.context.getAssets(), "fonts/MuseoSans_500.otf"));
 		TextView textViewType = (TextView) rowView
 				.findViewById(R.id.TextViewType);
+        textViewType.setTypeface(Typeface.createFromAsset(this.context.getAssets(), "fonts/MuseoSans_900.otf"));
 		ImageView imageNoteType = (ImageView) rowView
 				.findViewById(R.id.ImageNoteType);
 

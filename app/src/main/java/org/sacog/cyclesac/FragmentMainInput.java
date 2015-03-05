@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -221,9 +222,41 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 		txtCurSpeed = (TextView) rootView.findViewById(R.id.textViewSpeed);
 
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        setCustomFonts(rootView);
 
 		return rootView;
 	}
+
+    public void setCustomFonts(View rootView) {
+        TextView txt;
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_500.otf");
+
+        txt = (TextView) rootView.findViewById(R.id.textViewElapsedTime);
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView2);
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textViewDistance);
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView3);
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textViewSpeed);
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.textView4);
+        txt.setTypeface(font);
+
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_900.otf");
+
+        txt = (TextView) rootView.findViewById(R.id.buttonNoteThis);
+        txt.setTypeface(font);
+
+        txt = (TextView) rootView.findViewById(R.id.buttonStart);
+        txt.setTypeface(font);
+    }
 
 	// @Override
 	// public View onCreateView(LayoutInflater inflater, ViewGroup container,

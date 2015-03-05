@@ -6,25 +6,23 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTabHost;
-import android.support.v4.view.PagerTabStrip;
+
 import android.support.v4.view.ViewPager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TabHost;
-import android.widget.TabWidget;
-import android.widget.TextView;
 
 public class TabsConfig extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -92,6 +90,7 @@ public class TabsConfig extends FragmentActivity implements
 						actionBar.setSelectedNavigationItem(position);
 					}
 				});
+
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			// Create a tab with text corresponding to the page title defined by

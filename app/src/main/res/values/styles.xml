@@ -15,6 +15,17 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!--<item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>-->
     </style>
 
+    <style name="TextAppearance.FontPath" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/MuseoSans_900.otf</item>
+    </style>
+    <!--
+    <style name="AppTheme.Widget"/>
+
+    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+        <item name="fontPath">fonts/MuseoSans_900.otf</item>
+    </style>-->
 </resources>

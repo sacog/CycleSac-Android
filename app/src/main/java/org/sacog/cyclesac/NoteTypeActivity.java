@@ -3,6 +3,7 @@ package org.sacog.cyclesac;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -19,6 +20,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NoteTypeActivity extends Activity {
 	// HashMap<Integer, ToggleButton> purpButtons = new HashMap<Integer,
@@ -81,6 +85,12 @@ public class NoteTypeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_note_type);
 
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/MuseoSans_500.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
+
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		// Set up note type buttons
@@ -138,6 +148,11 @@ public class NoteTypeActivity extends Activity {
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 	/* Creates the menu items */
 	@Override
