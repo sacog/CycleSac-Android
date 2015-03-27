@@ -110,9 +110,6 @@ public class SavedTripsAdapter extends SimpleCursorAdapter {
 					"Social")) {
 				imageTripPurpose.setImageResource(R.drawable.social_high);
 			} else if (cursor.getString(cursor.getColumnIndex("purp")).equals(
-					"Shopping")) {
-				imageTripPurpose.setImageResource(R.drawable.shopping_high);
-			} else if (cursor.getString(cursor.getColumnIndex("purp")).equals(
 					"Errand")) {
 				imageTripPurpose.setImageResource(R.drawable.errands_high);
 			} else if (cursor.getString(cursor.getColumnIndex("purp")).equals(

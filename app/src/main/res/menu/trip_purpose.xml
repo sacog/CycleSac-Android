@@ -1,8 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/action_cancel_trip_purpose"
         android:showAsAction="always"
-          android:title="cancel"/>
+          android:title="Discard Trip"/>
     <item android:id="@+id/action_save_trip_purpose"
         android:showAsAction="always"
-          android:title="save"/>
+          android:title="Next"/>
 </menu>
