@@ -61,7 +61,7 @@ public class FragmentUserInfo extends Fragment {
 		GetStarted.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
-						.parse(rootUrl + "/instructions-v2/"));
+						.parse(rootUrl));
 				startActivity(browserIntent);
 			}
 		});

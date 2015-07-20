@@ -50,6 +50,7 @@
         <item>$15,000 to $34,999</item>
         <item>$35,000 to $49,999</item>
         <item>$50,000 to $74,999</item>
+        <item>%75,000 to $99,999</item>
         <item>$100,000 to $149,999</item>
         <item>$150,000 to $199,999</item>
         <item>More than $200,000</item>
@@ -80,6 +81,6 @@
     <string name="zip_hint">12345</string>
 
     <string name="title_activity_main">CycleSac</string>
-    <string name="root_url">http://cyclesac.sacog.org</string>
+    <string name="root_url">http://CycleSac.org</string>
 
 </resources>

@@ -162,6 +162,16 @@
                 android:textColor="#FDB813"
                 android:textStyle="bold" 
                 android:text="Start" />
+
+            <Button
+                android:id="@+id/buttonPause"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:background="#ef4036"
+                android:textColor="#FDB813"
+                android:textStyle="bold"
+                android:text="Pause"
+                android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
 

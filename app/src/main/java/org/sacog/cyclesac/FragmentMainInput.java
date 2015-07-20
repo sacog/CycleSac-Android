@@ -215,6 +215,19 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 			}
 		});
 
+        final Button pauseButton = (Button) rootView.findViewById(R.id.buttonPause);
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (isRecording) {
+                    pauseRecording();
+                    pauseButton.setText("Resume");
+                } else {
+                    resumeRecording();
+                    pauseButton.setText("Pause");
+                }
+            }
+        });
+
 		// copy from Recording Activity
 		txtDuration = (TextView) rootView
 				.findViewById(R.id.textViewElapsedTime);
@@ -314,7 +327,58 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 
 		txtCurSpeed = (TextView) getActivity().findViewById(R.id.textViewSpeed);
 		txtCurSpeed.setText("0.0 mph");
+
+        View pauseButton = getActivity().findViewById(R.id.buttonPause);
+        pauseButton.setVisibility(View.INVISIBLE);
 	}
+
+    void pauseRecording() {
+        Intent rService = new Intent(getActivity(), RecordingService.class);
+        ServiceConnection sc = new ServiceConnection() {
+			public void onServiceDisconnected(ComponentName name) {
+			}
+
+			public void onServiceConnected(ComponentName name, IBinder service) {
+				IRecordService rs = (IRecordService) service;
+				rs.pauseRecording();
+                getActivity().unbindService(this);
+			}
+		};
+
+        getActivity().bindService(rService, sc, Context.BIND_AUTO_CREATE);
+        isRecording = false;
+        trip.pauseStartedAt = System.currentTimeMillis();
+        if (timer != null)
+            timer.cancel();
+    }
+
+    void resumeRecording() {
+        Intent rService = new Intent(getActivity(), RecordingService.class);
+        ServiceConnection sc = new ServiceConnection() {
+            public void onServiceDisconnected(ComponentName name) {
+            }
+
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                IRecordService rs = (IRecordService) service;
+                rs.resumeRecording();
+                getActivity().unbindService(this);
+            }
+        };
+
+        getActivity().bindService(rService, sc, Context.BIND_AUTO_CREATE);
+        isRecording = true;
+        if (trip.pauseStartedAt > 0) {
+            trip.totalPauseTime += (System
+                    .currentTimeMillis() - trip.pauseStartedAt);
+        }
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.post(mUpdateTimer);
+            }
+        }, 0, 1000); // every second
+    }
 
 	void startRecording() {
 		// Query the RecordingService to figure out what to do.
@@ -328,7 +392,6 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 
 			public void onServiceConnected(ComponentName name, IBinder service) {
 				IRecordService rs = (IRecordService) service;
-
 				switch (rs.getState()) {
 				case RecordingService.STATE_IDLE:
 					trip = TripData.createTrip(getActivity());
@@ -355,6 +418,9 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 		getActivity().bindService(rService, sc, Context.BIND_AUTO_CREATE);
 
 		isRecording = true;
+
+        View pauseButton = getActivity().findViewById(R.id.buttonPause);
+        pauseButton.setVisibility(View.VISIBLE);
 	}
 
 	private void buildAlertMessageNoGps() {

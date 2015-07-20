@@ -134,7 +134,7 @@ public class RecordingService extends Service implements LocationListener {
 		lastLocation = null;
 
 		// Add the notify bar and blinking light
-		setNotification();
+		//setNotification();
 
 		// Start listening for GPS updates!
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -171,7 +171,7 @@ public class RecordingService extends Service implements LocationListener {
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		lm.removeUpdates(this);
 
-		clearNotifications();
+		//clearNotifications();
 
 		return trip.tripid;
 	}
