@@ -31,8 +31,6 @@ public class RecordingService extends Service implements LocationListener {
 	static int BELL_FIRST_INTERVAL = 20;
 	static int BELL_NEXT_INTERVAL = 5;
 	Timer timer;
-	SoundPool soundpool;
-	int bikebell;
 	final Handler mHandler = new Handler();
 	final Runnable mRemindUser = new Runnable() {
 		public void run() {
@@ -69,8 +67,6 @@ public class RecordingService extends Service implements LocationListener {
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         );
-		soundpool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
-		bikebell = soundpool.load(this.getBaseContext(), R.raw.bikebell, 1);
 	}
 
 	@Override
@@ -234,8 +230,6 @@ public class RecordingService extends Service implements LocationListener {
 	// END LocationListener implementation:
 
 	public void remindUser() {
-		soundpool.play(bikebell, 1.0f, 1.0f, 1, 0, 1.0f);
-
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		int icon = R.drawable.icon48;
 		long when = System.currentTimeMillis();
