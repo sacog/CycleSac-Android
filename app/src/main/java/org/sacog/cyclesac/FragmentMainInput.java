@@ -510,7 +510,7 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 					}
 				});
 
-		builder.setPositiveButton("Cancel",
+		builder.setPositiveButton("Resume",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();
