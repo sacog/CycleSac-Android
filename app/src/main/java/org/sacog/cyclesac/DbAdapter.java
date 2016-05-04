@@ -48,20 +48,6 @@ public class DbAdapter {
 	public static final String K_POINT_ALT = "alt";
 	public static final String K_POINT_SPEED = "speed";
 
-	public static final String K_NOTE_ROWID = "_id";
-	public static final String K_NOTE_RECORDED = "noterecorded";
-	public static final String K_NOTE_FANCYSTART = "notefancystart";
-	public static final String K_NOTE_LAT = "notelat";
-	public static final String K_NOTE_LGT = "notelgt";
-	public static final String K_NOTE_ACC = "noteacc";
-	public static final String K_NOTE_ALT = "notealt";
-	public static final String K_NOTE_SPEED = "notespeed";
-	public static final String K_NOTE_TYPE = "notetype";
-	public static final String K_NOTE_DETAILS = "notedetails";
-	public static final String K_NOTE_IMGURL = "noteimageurl";
-	public static final String K_NOTE_IMGDATA = "noteimagedata";
-	public static final String K_NOTE_STATUS = "notestatus";
-
 	private static final String TAG = "DbAdapter";
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
@@ -87,7 +73,6 @@ public class DbAdapter {
 	private static final String DATABASE_NAME = "data";
 	private static final String DATA_TABLE_TRIPS = "trips";
 	private static final String DATA_TABLE_COORDS = "coords";
-	private static final String DATA_TABLE_NOTES = "notes";
 
 	private final Context mCtx;
 
@@ -341,155 +326,5 @@ public class DbAdapter {
 
 		return mDb.update(DATA_TABLE_TRIPS, initialValues, K_TRIP_ROWID + "="
 				+ tripid, null) > 0;
-	}
-
-	// #### Notes table methods ####
-
-	/**
-	 * Create a new note using the data provided. If the note is successfully
-	 * created return the new rowId for that note, otherwise return a -1 to
-	 * indicate failure.
-	 */
-
-	public long createNote(int noteType, double noterecorded,
-			String notefancystart, String notedetails, String noteimageurl,
-			byte[] noteimagedata) {
-		ContentValues initialValues = new ContentValues();
-		initialValues.put(K_NOTE_TYPE, noteType);
-		initialValues.put(K_NOTE_RECORDED, noterecorded);
-		initialValues.put(K_NOTE_FANCYSTART, notefancystart);
-		initialValues.put(K_NOTE_DETAILS, notedetails);
-		initialValues.put(K_NOTE_IMGURL, noteimageurl);
-		initialValues.put(K_NOTE_IMGDATA, noteimagedata);
-
-		initialValues.put(K_NOTE_LAT, 0);
-		initialValues.put(K_NOTE_LGT, 0);
-		initialValues.put(K_NOTE_ACC, 0);
-		initialValues.put(K_NOTE_ALT, 0);
-		initialValues.put(K_NOTE_SPEED, 0);
-
-		initialValues.put(K_NOTE_STATUS, NoteData.STATUS_INCOMPLETE);
-
-		return mDb.insert(DATA_TABLE_NOTES, null, initialValues);
-	}
-
-	public long createNote() {
-		return createNote(-1, System.currentTimeMillis(), "", "", "", null);
-	}
-
-	/**
-	 * Delete the note with the given rowId
-	 * 
-	 * @param rowId
-	 *            id of note to delete
-	 * @return true if deleted, false otherwise
-	 */
-	public boolean deleteNote(long rowId) {
-		return mDb.delete(DATA_TABLE_NOTES, K_NOTE_ROWID + "=" + rowId, null) > 0;
-	}
-
-	/**
-	 * Return a Cursor over the list of all notes in the database
-	 * 
-	 * @return Cursor over all notes
-	 */
-	public Cursor fetchAllNotes() {
-		Cursor c = mDb.query(DATA_TABLE_NOTES,
-				new String[] { K_NOTE_ROWID, K_NOTE_TYPE, K_NOTE_RECORDED,
-						K_NOTE_FANCYSTART, K_NOTE_DETAILS, K_NOTE_IMGURL,
-						K_NOTE_IMGDATA, K_NOTE_LAT, K_NOTE_LGT, K_NOTE_ACC,
-						K_NOTE_ALT, K_NOTE_SPEED, K_NOTE_STATUS }, null, null,
-				null, null, "-" + K_NOTE_RECORDED);
-		if (c != null && c.getCount() > 0) {
-			c.moveToFirst();
-		}
-		return c;
-	}
-
-	public Cursor fetchUnsentNotes() {
-		Cursor c = mDb.query(DATA_TABLE_NOTES, new String[] { K_NOTE_ROWID },
-				K_NOTE_STATUS + "=" + NoteData.STATUS_COMPLETE, null, null,
-				null, null);
-		if (c != null && c.getCount() > 0) {
-			c.moveToFirst();
-		}
-		return c;
-	}
-
-	public int cleanNoteTables() {
-		int badNotes = 0;
-
-		Cursor c = mDb.query(DATA_TABLE_NOTES, new String[] { K_NOTE_ROWID,
-				K_NOTE_STATUS }, K_NOTE_STATUS + "="
-				+ NoteData.STATUS_INCOMPLETE, null, null, null, null);
-
-		if (c != null && c.getCount() > 0) {
-			c.moveToFirst();
-			badNotes = c.getCount();
-
-			while (!c.isAfterLast()) {
-				c.moveToNext();
-			}
-		}
-		c.close();
-		if (badNotes > 0) {
-			mDb.delete(DATA_TABLE_NOTES, K_NOTE_STATUS + "="
-					+ NoteData.STATUS_INCOMPLETE, null);
-		}
-		return badNotes;
-	}
-
-	/**
-	 * Return a Cursor positioned at the note that matches the given rowId
-	 * 
-	 * @param rowId
-	 *            id of note to retrieve
-	 * @return Cursor positioned to matching note, if found
-	 * @throws SQLException
-	 *             if note could not be found/retrieved
-	 */
-	public Cursor fetchNote(long rowId) throws SQLException {
-		Cursor mCursor = mDb.query(true, DATA_TABLE_NOTES,
-				new String[] { K_NOTE_ROWID, K_NOTE_TYPE, K_NOTE_RECORDED,
-						K_NOTE_FANCYSTART, K_NOTE_DETAILS, K_NOTE_IMGURL,
-						K_NOTE_IMGDATA, K_NOTE_LAT, K_NOTE_LGT, K_NOTE_ACC,
-						K_NOTE_ALT, K_NOTE_SPEED, K_NOTE_STATUS },
-
-				K_NOTE_ROWID + "=" + rowId,
-
-				null, null, null, null, null);
-		if (mCursor != null) {
-			mCursor.moveToFirst();
-		}
-		return mCursor;
-	}
-
-	public boolean updateNote(long noteid, double noterecorded,
-			String notefancystart, int notetype, String notedetails,
-			String noteimgurl, byte[] noteimgdata, int latitude, int longitude,
-			float accuracy, double altitude, float speed) {
-		ContentValues initialValues = new ContentValues();
-		initialValues.put(K_NOTE_RECORDED, noterecorded);
-		initialValues.put(K_NOTE_FANCYSTART, notefancystart);
-		initialValues.put(K_NOTE_LAT, latitude);
-		initialValues.put(K_NOTE_LGT, longitude);
-		initialValues.put(K_NOTE_ACC, accuracy);
-		initialValues.put(K_NOTE_ALT, altitude);
-		initialValues.put(K_NOTE_SPEED, speed);
-		initialValues.put(K_NOTE_TYPE, notetype);
-		initialValues.put(K_NOTE_DETAILS, notedetails);
-		initialValues.put(K_NOTE_IMGURL, noteimgurl);
-		initialValues.put(K_NOTE_IMGDATA, noteimgdata);
-
-		return mDb.update(DATA_TABLE_NOTES, initialValues, K_NOTE_ROWID + "="
-				+ noteid, null) > 0;
-	}
-
-	public boolean updateNoteStatus(long noteid, int noteStatus) {
-		ContentValues initialValues = new ContentValues();
-		initialValues.put(K_NOTE_STATUS, noteStatus);
-
-		return mDb.update(DATA_TABLE_NOTES, initialValues, K_NOTE_ROWID + "="
-				+ noteid, null) > 0;
 	}
 }

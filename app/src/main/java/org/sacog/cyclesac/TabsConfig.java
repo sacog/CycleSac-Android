@@ -15,9 +15,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import android.support.v4.view.ViewPager;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
@@ -42,13 +39,11 @@ public class TabsConfig extends FragmentActivity implements
 	 */
 	ViewPager mViewPager;
 
-	Fragment fragment1;
+	Fragment mainFragment;
 
-	Fragment fragment2;
+	Fragment savedTripsFragment;
 
-	Fragment fragment3;
-
-	Fragment fragment4;
+	Fragment userInfoFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +56,9 @@ public class TabsConfig extends FragmentActivity implements
 
 		// Toast.makeText(this, "Tab Created", Toast.LENGTH_LONG).show();
 
-		fragment1 = new FragmentMainInput();
-		fragment2 = new FragmentSavedTripsSection();
-		fragment3 = new FragmentSavedNotesSection();
-		fragment4 = new FragmentUserInfo();
+		mainFragment = new FragmentMainInput();
+		savedTripsFragment = new FragmentSavedTripsSection();
+		userInfoFragment = new FragmentUserInfo();
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -137,11 +131,6 @@ public class TabsConfig extends FragmentActivity implements
 			actionBar.setDisplayShowHomeEnabled(true);
 			actionBar.setTitle("CycleSac");
 			break;
-		case 3:
-			actionBar.setDisplayShowTitleEnabled(true);
-			actionBar.setDisplayShowHomeEnabled(true);
-			actionBar.setTitle("CycleSac");
-			break;
 		}
 	}
 
@@ -195,21 +184,19 @@ public class TabsConfig extends FragmentActivity implements
 
 			switch (position) {
 			case 0:
-				return fragment1;
+				return mainFragment;
 			case 1:
-				return fragment2;
+				return savedTripsFragment;
 			case 2:
-				return fragment3;
-			case 3:
-				return fragment4;
+				return userInfoFragment;
 			}
 			return null;
 		}
 
 		@Override
 		public int getCount() {
-			// Show 4 total pages.
-			return 4;
+			// Show 3 total pages.
+			return 3;
 		}
 
 		@Override
@@ -222,8 +209,6 @@ public class TabsConfig extends FragmentActivity implements
 				return getString(R.string.title_section2).toUpperCase(l);
 			case 2:
 				return getString(R.string.title_section3).toUpperCase(l);
-			case 3:
-				return getString(R.string.title_section4).toUpperCase(l);
 			}
 			return null;
 		}

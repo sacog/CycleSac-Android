@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">CycleSac</string>
-    <string name="title_section4">Settings</string>
-    <string name="title_section3">Notes</string>
+    <string name="title_section3">Settings</string>
     <string name="title_section2">Trips</string>
     <string name="title_section1">Record</string>
     <string name="action_settings">Settings</string>
@@ -14,10 +13,6 @@
     <string name="title_activity_trip_map">Trip Map</string>
     <string name="title_activity_saved_trips">Saved Trips</string>
     <string name="title_activity_trip_detail">Trip Details</string>
-    <string name="title_activity_note_type">Note Type</string>
-    <string name="title_activity_note_detail">Note Details</string>
-    <string name="title_activity_note_map">Note Map</string>
-    <string name="title_activity_saved_notes">Saved Notes</string>
 
     <string-array name="ageArray">
         <item></item>

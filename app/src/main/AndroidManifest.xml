@@ -43,18 +43,6 @@
             android:name="org.sacog.cyclesac.TripDetailActivity"
             android:label="@string/title_activity_trip_detail" >
         </activity>
-        <activity
-            android:name="org.sacog.cyclesac.NoteTypeActivity"
-            android:label="@string/title_activity_note_type" >
-        </activity>
-        <activity
-            android:name="org.sacog.cyclesac.NoteDetailActivity"
-            android:label="@string/title_activity_note_detail" >
-        </activity>
-        <activity
-            android:name="org.sacog.cyclesac.NoteMapActivity"
-            android:label="@string/title_activity_note_map" >
-        </activity>
 
         <service android:name=".RecordingService" android:enabled="true"/>
 

@@ -48,7 +48,6 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 
 	Intent fi;
 	TripData trip;
-	NoteData note;
 	boolean isRecording = false;
 	Timer timer;
 	float curDistance;
@@ -170,51 +169,6 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
 			}
 		});
 
-		Button noteThisButton = (Button) rootView
-				.findViewById(R.id.buttonNoteThis);
-		noteThisButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				final LocationManager manager = (LocationManager) getActivity()
-						.getSystemService(Context.LOCATION_SERVICE);
-				if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-					buildAlertMessageNoGps();
-				} else {
-					fi = new Intent(getActivity(), NoteTypeActivity.class);
-					// update note entity
-					note = NoteData.createNote(getActivity());
-
-					fi.putExtra("noteid", note.noteid);
-
-					Log.v("Jason", "Note ID in MainInput: " + note.noteid);
-
-					if (isRecording == true) {
-						fi.putExtra("isRecording", 1);
-					} else {
-						fi.putExtra("isRecording", 0);
-					}
-
-					note.updateNoteStatus(NoteData.STATUS_INCOMPLETE);
-
-					double currentTime = System.currentTimeMillis();
-
-					if (currentLocation != null) {
-						note.addPointNow(currentLocation, currentTime);
-
-						// Log.v("Jason", "Note ID: "+note);
-
-						startActivity(fi);
-						getActivity().overridePendingTransition(
-								R.anim.slide_in_right, R.anim.slide_out_left);
-						// getActivity().finish();
-					} else {
-						Toast.makeText(getActivity(),
-								"No GPS data acquired; nothing to submit.",
-								Toast.LENGTH_SHORT).show();
-					}
-				}
-			}
-		});
-
         final Button pauseButton = (Button) rootView.findViewById(R.id.buttonPause);
         pauseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -263,9 +217,6 @@ public class FragmentMainInput extends Fragment implements ConnectionCallbacks,
         txt.setTypeface(font);
 
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MuseoSans_900.otf");
-
-        txt = (TextView) rootView.findViewById(R.id.buttonNoteThis);
-        txt.setTypeface(font);
 
         txt = (TextView) rootView.findViewById(R.id.buttonStart);
         txt.setTypeface(font);

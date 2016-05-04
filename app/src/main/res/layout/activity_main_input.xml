@@ -135,15 +135,6 @@
             android:gravity="center"
             android:orientation="vertical"
             android:paddingTop="75dp" >
-
-            <Button
-                android:id="@+id/buttonNoteThis"
-                android:layout_width="140dp"
-                android:layout_height="40dp"
-                android:background="#333333"
-                android:textColor="#ef4036"
-                android:textStyle="bold"
-                android:text="Note this..." />
         </LinearLayout>
 
         <LinearLayout
