@@ -278,10 +278,8 @@
                 android:id="@+id/ridertypeSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/TextEmail"
-                android:layout_alignRight="@+id/TextEmail"
-                android:layout_alignTop="@+id/textViewRiderConfidence"
-                android:entries="@array/ridertypeArray" />
+                android:layout_toRightOf="@id/textViewRiderConfidence"
+                android:layout_alignTop="@id/textViewRiderConfidence" />
 
             <Button
                 android:id="@+id/saveSettingsButton"

@@ -59,10 +59,17 @@
     </string-array>
     <string-array name="ridertypeArray">
         <item></item>
-        <item>Strong &amp; fearless - I am willing to ride my bike in  any situation</item>
-        <item>Enthused &amp; confident - I am confident sharing the road with vehicles, but prefer facilities geared to cyclists</item>
-        <item>Comfortable, but cautious - I am comfortable on most roads, but strongly prefer facilities geared to cyclists</item>
-        <item>Interested, but concerned - I am curious to try cycling, but I require facilities geared to cyclists</item>
+        <item>Strong &amp; fearless</item>
+        <item>Enthused &amp; confident</item>
+        <item>Comfortable, but cautious</item>
+        <item>Interested, but concerned</item>
+    </string-array>
+    <string-array name="ridertypesubtextArray">
+        <item></item>
+        <item>I am willing to ride my bike in  any situation</item>
+        <item>I am confident sharing the road with vehicles, but prefer facilities geared to cyclists</item>
+        <item>I am comfortable on most roads, but strongly prefer facilities geared to cyclists</item>
+        <item>I am curious to try cycling, but I require facilities geared to cyclists</item>
     </string-array>
     <string-array name="riderhistoryArray">
         <item></item>
