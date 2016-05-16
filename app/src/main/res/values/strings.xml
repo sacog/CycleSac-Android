@@ -86,5 +86,5 @@
     <string name="root_url">http://CycleSac.org</string>
 
     <string name="whyDoWeAskThis"><a href="http://cyclesac.org/faq/">Why do we ask this?</a></string>
-
+    <string name="tripDetail">What made your bike ride great or terrible? (<a href="http://cyclesac.org/faq">What do you do with my trip information?</a>)</string>
 </resources>
