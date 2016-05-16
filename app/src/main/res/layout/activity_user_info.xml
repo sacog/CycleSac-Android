@@ -45,11 +45,22 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView fontPath="fonts/MuseoSans_500.otf"
+                android:id="@+id/whyDoWeAskThis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/buttonGetStarted"
+                android:layout_below="@+id/textView1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/whyDoWeAskThis"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView fontPath="fonts/MuseoSans_500.otf"
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView1"
-                android:layout_below="@+id/textView1"
+                android:layout_below="@+id/whyDoWeAskThis"
                 android:layout_marginTop="15dp"
                 android:text="Age"
                 android:textColor="@android:color/black"

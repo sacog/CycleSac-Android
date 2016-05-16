@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -68,6 +71,9 @@ public class FragmentUserInfo extends Fragment {
                 startActivity(browserIntent);
             }
         });
+
+        TextView whyDoWeAskThis = (TextView)rootView.findViewById(R.id.whyDoWeAskThis);
+        whyDoWeAskThis.setMovementMethod(LinkMovementMethod.getInstance());
 
         SharedPreferences settings = getActivity().getSharedPreferences("PREFS", 0);
         Map<String, ?> prefs = settings.getAll();

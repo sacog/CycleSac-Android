@@ -85,4 +85,6 @@
     <string name="title_activity_main">CycleSac</string>
     <string name="root_url">http://CycleSac.org</string>
 
+    <string name="whyDoWeAskThis"><a href="http://cyclesac.org/faq/">Why do we ask this?</a></string>
+
 </resources>
