@@ -1,4 +1,4 @@
-package org.sacog.cyclesac;
+package org.sacog.cyclesac2;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,8 +12,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;

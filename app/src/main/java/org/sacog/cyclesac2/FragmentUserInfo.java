@@ -1,9 +1,8 @@
-package org.sacog.cyclesac;
+package org.sacog.cyclesac2;
 
 import java.util.Map;
 import java.util.Map.Entry;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -24,11 +23,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FragmentUserInfo extends Fragment {
 

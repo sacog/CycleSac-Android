@@ -1,4 +1,4 @@
-package org.sacog.cyclesac;
+package org.sacog.cyclesac2;
 
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
@@ -12,7 +12,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.method.LinkMovementMethod;
-import android.text.method.MovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;

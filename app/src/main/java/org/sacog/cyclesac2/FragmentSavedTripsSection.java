@@ -1,4 +1,4 @@
-package org.sacog.cyclesac;
+package org.sacog.cyclesac2;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class FragmentSavedTripsSection extends Fragment {

@@ -1,4 +1,4 @@
-package org.sacog.cyclesac;
+package org.sacog.cyclesac2;
 
 import android.app.Activity;
 import android.content.ComponentName;
